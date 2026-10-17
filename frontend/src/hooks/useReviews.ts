@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { analyze, TIMEOUT_MS, validateVideo } from '../api/client';
 import type { ReviewJob, Settings } from '../api/types';
-const annotated = (time:number) => ({title:'Событие из разметки',time,description:'В исходной таблице отмечено нарушение. Тип, визуальное обоснование и нормативный источник не предоставлены; их должен определить аналитический модуль.',frames:[]});
+const annotated = (time:number) => ({title:'Событие из разметки',time,description:'В разметке отмечено нарушение. Тип события и нормативное основание пока не указаны.',frames:[]});
 export const samples: ReviewJob[] = [
  {id:'sample-26',name:'Х-26.mov',status:'attention',time:'Разметка датасета — 00:09',url:'/demo/x-26.mov',events:[annotated(9)],demo:true},
  {id:'sample-3',name:'Х-3.mov',status:'clean',time:'Разметка датасета',url:'/demo/x-3.mov',events:[],demo:true},
