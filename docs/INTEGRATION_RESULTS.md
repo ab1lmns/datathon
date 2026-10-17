@@ -4,7 +4,7 @@
 
 Исходный frontend команды → новый same-origin gateway → существующий production API localhost:17070. Сервер UI localhost:7860 переведён с прежней страницы на React. GPU worker не перезапускался для внедрения UI, модель и параметры распознавания не менялись. Обучение не запускалось.
 
-Чистая локальная папка: `/Users/danik/datathon-release`. Исследовательская папка `/Users/danik/datathon` сохранена. Прежний backend-заглушка и его README заархивированы в `/Users/danik/datathon-archives/repository-backend-before-integration-20261018.tgz`; исходный серверный экспорт также сохранён там.
+Чистая локальная папка: `/Users/danik/datathon-release`. Исследовательская папка `/Users/danik/datathon` сохранена. Неиспользуемые LOSO-fold классификаторы исключены из релиза, исходный экспорт с ними сохранён в архиве. Прежний backend-заглушка и его README заархивированы в `/Users/danik/datathon-archives/repository-backend-before-integration-20261018.tgz`; исходный серверный экспорт также сохранён там.
 
 ## Фактические проверки
 
@@ -13,7 +13,7 @@
 | React TypeScript + Vite build | PASS; предупреждение о крупном Three.js chunk, не ошибка |
 | Тесты frontend-контракта | 6/6 PASS |
 | Тесты gateway на Mac и сервере | 2/2 PASS |
-| Исходники production и joblib | 34 файла совпали с экспортированными SHA-256 |
+| Исходники production и joblib | 25 файлов совпали с экспортированными SHA-256 |
 | CSS styles/pages/motion относительно исходной ветки | Без изменений |
 | Health / документация / React HTML | HTTP 200 |
 | Неверный/отсутствующий ключ | HTTP 401 |
