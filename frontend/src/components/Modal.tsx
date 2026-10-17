@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { X } from 'lucide-react';
+import { X } from './Icons';
 export function Modal({title,id='modal-title',className='',onClose,children}:{title:string;id?:string;className?:string;onClose:()=>void;children:ReactNode}){
  const ref=useRef<HTMLElement>(null),close=useRef(onClose);close.current=onClose;
  useEffect(()=>{

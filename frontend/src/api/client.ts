@@ -47,3 +47,10 @@ export async function analyze(file: File, settings: Settings, signal: AbortSigna
   await new Promise<void>((resolve,reject)=>{const abort=()=>{clearTimeout(timer);reject(new DOMException('Aborted','AbortError'))};const timer=setTimeout(()=>{signal.removeEventListener('abort',abort);resolve()},POLL_MS);signal.addEventListener('abort',abort,{once:true});if(signal.aborted)abort()});
  }
 }
+
+export interface ServiceHealth { status: 'ok'; analysis_available?: boolean; ffprobe_available?: boolean; analyzer?: string }
+export async function getHealth(settings: Settings, signal: AbortSignal): Promise<ServiceHealth> {
+ const value=await request(settings,'/health',signal);
+ if(!record(value)||value.status!=='ok')throw new Error('Сервер вернул неизвестный формат состояния.');
+ return {status:'ok',analysis_available:typeof value.analysis_available==='boolean'?value.analysis_available:undefined,ffprobe_available:typeof value.ffprobe_available==='boolean'?value.ffprobe_available:undefined,analyzer:typeof value.analyzer==='string'?value.analyzer:undefined};
+}

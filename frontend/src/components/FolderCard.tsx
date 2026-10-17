@@ -1,11 +1,11 @@
 import type { CSSProperties } from 'react';
-import { ArrowUpRight, type LucideIcon } from 'lucide-react';
+import { ArrowUpRight, type AppIcon } from './Icons';
 
 type FolderCardProps = {
   title: string;
   value: number | null;
   subtitle: string;
-  Icon: LucideIcon;
+  Icon: AppIcon;
   color: string;
   order: number;
   selected: boolean;

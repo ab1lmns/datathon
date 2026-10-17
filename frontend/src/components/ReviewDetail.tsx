@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AlertCircle, ArrowDownToLine, ArrowLeft, ArrowRight, Check, FileText, Info, LoaderCircle, Play, RotateCcw, Video } from 'lucide-react';
+import { AlertCircle, ArrowDownToLine, ArrowLeft, ArrowRight, Check, FileText, Info, LoaderCircle, Play, RotateCcw, Video } from './Icons';
 import { frameUrl } from '../api/client';
 import type { ReviewEvent, ReviewJob } from '../api/types';
 
