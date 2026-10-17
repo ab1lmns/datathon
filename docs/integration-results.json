@@ -1,0 +1,25 @@
+{
+  "auth_and_validation": "pass",
+  "real_video_checks": [
+    {
+      "video": "Х-25.mov",
+      "status": "done",
+      "verdict": "no_violation",
+      "types": [],
+      "frames": 0,
+      "wall_sec": 5.05,
+      "raw_model_result_unchanged": true
+    },
+    {
+      "video": "Х-46.mov",
+      "status": "done",
+      "verdict": "violation",
+      "types": [
+        "Личные вещи на рабочем месте кассира"
+      ],
+      "frames": 2,
+      "wall_sec": 3.06,
+      "raw_model_result_unchanged": true
+    }
+  ]
+}

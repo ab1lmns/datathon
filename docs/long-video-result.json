@@ -1,0 +1,14 @@
+{
+  "auth_and_validation": "pass",
+  "real_video_checks": [
+    {
+      "video": "Х-14.mov",
+      "status": "done",
+      "verdict": "no_violation",
+      "types": [],
+      "frames": 0,
+      "wall_sec": 19.15,
+      "raw_model_result_unchanged": true
+    }
+  ]
+}
