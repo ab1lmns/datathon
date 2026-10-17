@@ -1,0 +1,43 @@
+@media(hover:hover) and (pointer:fine){
+ .folder:hover .folder-front{transform:perspective(600px) translateY(3px) rotateX(-30deg);box-shadow:0 10px 16px -10px #68193635}
+ .folder:hover .folder-sheet-back{transform:translateY(-14px) rotate(-3deg)}
+ .folder:hover .folder-sheet-top{transform:translateY(-22px) rotate(2deg)}
+ .folder:hover .folder-arrow{transform:translate(2px,-2px)}
+}
+.folder:focus-visible .folder-front{transform:perspective(600px) translateY(3px) rotateX(-30deg)}
+.folder:focus-visible .folder-sheet-back{transform:translateY(-14px) rotate(-3deg)}
+.folder:focus-visible .folder-sheet-top{transform:translateY(-22px) rotate(2deg)}
+.folder:active .folder-front{transform:perspective(600px) translateY(4px) rotateX(-18deg);transition-duration:.15s}
+.folder[data-opening] .folder-front{transform:perspective(550px) translateY(5px) rotateX(-46deg);box-shadow:0 14px 20px -12px #68193645;transition-duration:.22s}
+.folder[data-opening] .folder-sheet-back{transform:translateY(-23px) rotate(-5deg);transition-duration:.22s}
+.folder[data-opening] .folder-sheet-top{transform:translateY(-29px) rotate(3deg);transition-duration:.22s;transition-delay:0s}
+.folder[data-opening] .folder-arrow{transform:translate(3px,-3px)}
+main[data-transitioning]{pointer-events:none;will-change:opacity,transform}
+.help-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 22px}.help-actions .text-link{min-height:36px}
+
+/* The intro has a hard timeout and a skip action; the application is already mounted. */
+.startup-screen{position:fixed;inset:0;z-index:100;background:#fff;overflow:hidden}
+.startup-logo{position:absolute;left:calc(50% - 220px);top:calc(50% - 120px);width:440px;height:186px;transform-origin:0 0}
+.startup-sculpture{display:block;width:100%;height:100%;pointer-events:none}
+.startup-sculpture .sculpture-fallback{width:88%;left:6%;top:19%;transform-origin:center;animation:startup-turn 1.1s cubic-bezier(.65,0,.35,1) both}
+.startup-sculpture .sculpture-shadow{width:70%;left:15%;bottom:13%;height:6%;filter:blur(12px)}
+.startup-edition{position:absolute;top:10%;left:0;right:0;text-align:center;font-size:10px;font-weight:700;letter-spacing:2.5px;color:#6e7580}
+.startup-edition span{padding:0 14px;color:#abb0b9}
+.startup-caption{position:absolute;top:calc(50% + 100px);left:20px;right:20px;text-align:center;font-size:12px;font-weight:600;color:#667180}
+.startup-skip{position:absolute;right:36px;bottom:30px;display:flex;align-items:center;gap:10px;font-size:11px;color:#8b0d3d;padding:12px}
+.startup-screen[data-flying] .startup-edition,.startup-screen[data-flying] .startup-caption{opacity:0;transition:opacity .2s}
+@keyframes startup-turn{from{transform:perspective(700px) rotateY(360deg)}to{transform:perspective(700px) rotateY(0)}}
+@keyframes rise-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes modal-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes loading{0%,100%{transform:translateX(-100%)}50%{transform:translateX(260%)}}
+@keyframes scan{0%,100%{top:14px}50%{top:51px}}
+@keyframes sheet-in{from{opacity:.6;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.spin{animation:spin 1.5s linear infinite}.indeterminate i{animation:loading 1.6s ease-in-out infinite}.event-copy{animation:fade-in .25s}
+@media(max-width:760px){.help-actions{justify-content:center;gap:8px}.startup-caption{top:calc(50% + 68px);font-size:10px}.startup-edition{font-size:8px;letter-spacing:1.5px}.startup-skip{left:0;right:0;bottom:24px;justify-content:center}.preview-play{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ .folder:hover .folder-front,.folder:hover .folder-sheet,.folder:focus-visible .folder-front,.folder:focus-visible .folder-sheet,.folder:active .folder-front,.folder[data-opening] .folder-front,.folder[data-opening] .folder-sheet,.folder[data-opening] .folder-arrow{transform:none}
+ .scanner>span{top:31px}.indeterminate i{transform:none}
+}
