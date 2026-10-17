@@ -1,6 +1,6 @@
 # Передача фронтенда команде backend / AI
 
-Фронтенд готов к контракту Datathon 26. Серверного кода в репозитории нет. Начните с этого файла, затем `src/api/types.ts`, `src/api/client.ts`, `src/hooks/useReviews.ts`.
+Фронтенд готов к контракту Datathon 26. Базовый FastAPI-сервер теперь находится в `../../backend/`; запуск описан в `../../backend/README.md`. Модель анализа пока не подключена. Контракт фронтенда: `src/api/types.ts`, `src/api/client.ts`, `src/hooks/useReviews.ts`.
 
 ## Быстрое подключение
 

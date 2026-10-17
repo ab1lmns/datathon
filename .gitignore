@@ -3,4 +3,11 @@ dist/
 .DS_Store
 *.tsbuildinfo
 .env
+.env.local
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+backend/data/
 frontend/public/demo/*.mov

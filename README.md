@@ -1,6 +1,18 @@
 # Forte · Видеоконтроль
 
-Компактный React + TypeScript интерфейс. Бэкенд не реализован.
+React + TypeScript интерфейс и базовый FastAPI-бэкенд.
+API принимает MOV, хранит статусы и запускает обработку в отдельном процессе.
+AI-модель пока не подключена: новые видео завершаются понятной ошибкой без фиктивного вердикта.
+
+Запуск API и документация: [backend/README.md](backend/README.md).
+
+```bash
+cd backend
+source .venv/bin/activate
+python -m app
+```
+
+В отдельном терминале, из корня репозитория:
 
 ```bash
 cd frontend
@@ -11,6 +23,9 @@ npm run dev
 Открыть http://127.0.0.1:5173. Сборка: `npm run build`. Контрактные тесты: `npm test` (Node 24 рекомендуется).
 
 ## Для команды backend / AI
+
+Базовый сервер находится в `backend/`. Точка подключения локальной модели —
+`backend/app/analyzer.py`. Swagger UI после запуска: http://127.0.0.1:8000/docs.
 
 Полная инструкция подключения: [frontend/docs/BACKEND_HANDOFF.md](frontend/docs/BACKEND_HANDOFF.md).
 
