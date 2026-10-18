@@ -1,0 +1,71 @@
+{
+  "health": 200,
+  "missing_key": 401,
+  "wrong_key": 401,
+  "review_removed": 404,
+  "empty": 400,
+  "wrong_format": 400,
+  "Х-25.mov": {
+    "job_id": "c4a776933df0",
+    "status": "done",
+    "verdict": "no_violation",
+    "elapsed_sec": 73.59,
+    "states": [
+      "done",
+      "processing"
+    ],
+    "events": []
+  },
+  "Х-46.mov": {
+    "job_id": "179625205f61",
+    "status": "done",
+    "verdict": "violation",
+    "elapsed_sec": 40.05,
+    "states": [
+      "done",
+      "processing"
+    ],
+    "events": [
+      {
+        "type": "Личные вещи на рабочем месте кассира",
+        "timecode_sec": 11.2,
+        "frames": [
+          10.2,
+          11.2,
+          11.7
+        ],
+        "rule_relation": "CONDITIONAL_BASIS"
+      }
+    ]
+  },
+  "long": {
+    "job_id": "9ae429efc93f",
+    "status": "done",
+    "verdict": "no_violation",
+    "elapsed_sec": 76.2,
+    "states": [
+      "done",
+      "processing"
+    ],
+    "events": []
+  },
+  "corrupt": {
+    "job_id": "65031bb3287f",
+    "status": "failed",
+    "verdict": null,
+    "elapsed_sec": 1.75,
+    "states": [
+      "failed",
+      "processing"
+    ],
+    "events": []
+  },
+  "final_health": {
+    "status": "ok",
+    "worker": "ready",
+    "device": "cuda",
+    "queue": 0,
+    "busy": false
+  },
+  "transport": "Mac to https://forte.makquiz.site:14901; DNS only; certificate verification enabled"
+}

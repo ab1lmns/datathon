@@ -1,0 +1,377 @@
+{
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "results": [
+    {
+      "case": "count_absent",
+      "synthetic": true,
+      "facts": [
+        {
+          "id": "F1",
+          "text": "Кассир продолжает приём переданных клиентом наличных денег и пересчитывает именно эти деньги.",
+          "pts_sec": [
+            0.0
+          ],
+          "certainty": "clear"
+        },
+        {
+          "id": "F2",
+          "text": "Клиент ушёл из полностью наблюдаемой зоны обслуживания; через стекло и рядом его также нет.",
+          "pts_sec": [
+            1.0
+          ],
+          "certainty": "clear"
+        },
+        {
+          "id": "F3",
+          "text": "Операция приёма ещё не завершена, это не внутренняя обработка уже принятых денег.",
+          "pts_sec": [
+            2.0
+          ],
+          "certainty": "clear"
+        }
+      ],
+      "candidate_ids": [
+        "CASH_005",
+        "CASH_008",
+        "CASH_017",
+        "CASH_004"
+      ],
+      "raw": "{\"rule_id\": \"CASH_005\", \"conditions\": [{\"value\": \"TRUE\", \"fact_ids\": [\"F1\", \"F3\"], \"reason\": \"F1 confirms the cashier is continuing to receive cash from the client, and F3 confirms the operation is not yet complete, aligning with the statement.\", \"id\": \"CASH_005_C01\"}, {\"value\": \"TRUE\", \"fact_ids\": [\"F2\"], \"reason\": \"F2 states the client left the fully observable area, implying absence from the full view, not just a cropped frame.\", \"id\": \"CASH_005_C02\"}, {\"value\": \"TRUE\", \"fact_ids\": [\"F3\"], \"reason\": \"F3 explicitly states that the operation of receipt is not yet completed and is not internal processing of already received money, which directly supports the statement that recounting is not subsequent internal processing.\", \"id\": \"CASH_005_C03\"}, {\"value\": \"TRUE\", \"fact_ids\": [\"F2\"], \"reason\": \"F2 explicitly states the client has left the fully observable zone and is not near the glass, implying they are out of camera view.\", \"id\": \"CASH_005_A01\"}, {\"value\": \"FALSE\", \"fact_ids\": [\"F3\"], \"reason\": \"F3 explicitly contradicts the statement by stating the operation is not yet complete and is not internal processing of already received money.\", \"id\": \"CASH_005_A02\"}], \"reason\": \"Проверка каждого условия по фактам; объяснения приведены отдельно.\"}",
+      "output_tokens": 430,
+      "stages": [
+        {
+          "raw": "{\"rule_id\":\"CASH_005\",\"conditions\":[{\"id\":\"CASH_005_C01\",\"value\":\"TRUE\",\"fact_ids\":[\"F1\"],\"reason\":\"Кассир продолжает приём переданных клиентом наличных денег и пересчитывает именно эти деньги.\"},{\"id\":\"CASH_005_C02\",\"value\":\"TRUE\",\"fact_ids\":[\"F2\"],\"reason\":\"Клиент ушёл из полностью наблюдаемой зоны обслуживания; через стекло и рядом его также нет.\"},{\"id\":\"CASH_005_C03\",\"value\":\"TRUE\",\"fact_ids\":[\"F3\"],\"reason\":\"Операция приёма ещё не завершена, это не внутренняя обработка уже принятых денег.\"}],\"reason\":\"Пересчёт принимаемых денег без клиента — соответствует описанию: продолжается приём, клиент вне зоны, но не внутренняя обработка.\"}",
+          "output_tokens": 208,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_C01",
+          "raw": "{\"value\":\"TRUE\",\"fact_ids\":[\"F1\",\"F3\"],\"reason\":\"F1 confirms the cashier is continuing to receive cash from the client, and F3 confirms the operation is not yet complete, aligning with the statement.\"}",
+          "output_tokens": 49,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_C02",
+          "raw": "{\"value\":\"TRUE\",\"fact_ids\":[\"F2\"],\"reason\":\"F2 states the client left the fully observable area, implying absence from the full view, not just a cropped frame.\"}",
+          "output_tokens": 39,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_C03",
+          "raw": "{\"value\":\"TRUE\",\"fact_ids\":[\"F3\"],\"reason\":\"F3 explicitly states that the operation of receipt is not yet completed and is not internal processing of already received money, which directly supports the statement that recounting is not subsequent internal processing.\"}",
+          "output_tokens": 52,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_A01",
+          "raw": "{\"value\":\"TRUE\",\"fact_ids\":[\"F2\"],\"reason\":\"F2 explicitly states the client has left the fully observable zone and is not near the glass, implying they are out of camera view.\"}",
+          "output_tokens": 42,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_A02",
+          "raw": "{\"value\":\"FALSE\",\"fact_ids\":[\"F3\"],\"reason\":\"F3 explicitly contradicts the statement by stating the operation is not yet complete and is not internal processing of already received money.\"}",
+          "output_tokens": 40,
+          "finish_reason": "eos"
+        }
+      ],
+      "finish_reason": "eos",
+      "seconds": 6.883,
+      "validated": {
+        "assessment": "INSUFFICIENT_EVIDENCE",
+        "sources": [
+          {
+            "document": "Об утверждении Правил осуществления кассовых операций и операций по инкассации банкнот, монет и ценностей в банках второго уровня, филиалах банков-нерезидентов Республики Казахстан, Национальном операторе почты и юридических лицах, исключительной деятельностью которых является инкассация банкнот, монет и ценностей",
+            "section": "Правила, пункт 20",
+            "url": "https://adilet.zan.kz/rus/docs/V1900019680#z111",
+            "quote": "20. Наличные деньги принимаются и пересчитываются кассовым работником в присутствии клиента."
+          }
+        ],
+        "corpus_sha256": "c076a05687ff793dc120876bae9348bfc11744f742f97c454782b582d6db0283",
+        "source_checked_at": "2026-10-18T01:00:57.957506+00:00",
+        "rule_ids": [
+          "CASH_005"
+        ],
+        "reason": "Проверка каждого условия по фактам; объяснения приведены отдельно.",
+        "conditions": [
+          {
+            "value": "TRUE",
+            "fact_ids": [
+              "F1",
+              "F3"
+            ],
+            "reason": "F1 confirms the cashier is continuing to receive cash from the client, and F3 confirms the operation is not yet complete, aligning with the statement.",
+            "id": "CASH_005_C01"
+          },
+          {
+            "value": "TRUE",
+            "fact_ids": [
+              "F2"
+            ],
+            "reason": "F2 states the client left the fully observable area, implying absence from the full view, not just a cropped frame.",
+            "id": "CASH_005_C02"
+          },
+          {
+            "value": "TRUE",
+            "fact_ids": [
+              "F3"
+            ],
+            "reason": "F3 explicitly states that the operation of receipt is not yet completed and is not internal processing of already received money, which directly supports the statement that recounting is not subsequent internal processing.",
+            "id": "CASH_005_C03"
+          },
+          {
+            "value": "TRUE",
+            "fact_ids": [
+              "F2"
+            ],
+            "reason": "F2 explicitly states the client has left the fully observable zone and is not near the glass, implying they are out of camera view.",
+            "id": "CASH_005_A01"
+          },
+          {
+            "value": "FALSE",
+            "fact_ids": [
+              "F3"
+            ],
+            "reason": "F3 explicitly contradicts the statement by stating the operation is not yet complete and is not internal processing of already received money.",
+            "id": "CASH_005_A02"
+          }
+        ]
+      }
+    },
+    {
+      "case": "count_present",
+      "synthetic": true,
+      "facts": [
+        {
+          "id": "F1",
+          "text": "Кассир принимает наличные деньги и пересчитывает их в присутствии клиента.",
+          "pts_sec": [
+            0.0
+          ],
+          "certainty": "clear"
+        },
+        {
+          "id": "F2",
+          "text": "Клиент остаётся у рабочего стола до завершения пересчёта.",
+          "pts_sec": [
+            1.0
+          ],
+          "certainty": "clear"
+        }
+      ],
+      "candidate_ids": [
+        "CASH_008",
+        "CASH_005",
+        "CASH_004",
+        "CASH_006"
+      ],
+      "raw": "{\"rule_id\": \"CASH_005\", \"conditions\": [{\"value\": \"TRUE\", \"fact_ids\": [\"F1\"], \"reason\": \"F1 explicitly states that the cashier accepts cash in the presence of the client, which matches the statement 'This is a continuing cash receipt by the client'.\", \"id\": \"CASH_005_C01\"}, {\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет фактов, которые бы прямо подтверждали или опровергали утверждение о том, что присутствие клиента исключено по полному обзору зоны, а не по обрезанному кадру.\", \"id\": \"CASH_005_C02\"}, {\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет прямых фактов, которые бы подтвердили или опровергли, является ли пересчёт последующей внутренней обработкой или нет.\", \"id\": \"CASH_005_C03\"}, {\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет информации о том, находится ли клиент вне поля зрения камеры.\", \"id\": \"CASH_005_A01\"}, {\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет прямых фактов, подтверждающих или опровергающих, что обработка является внутренней и относится к уже принятым деньгам.\", \"id\": \"CASH_005_A02\"}], \"reason\": \"Проверка каждого условия по фактам; объяснения приведены отдельно.\"}",
+      "output_tokens": 444,
+      "stages": [
+        {
+          "raw": "{\"rule_id\":\"CASH_005\",\"conditions\":[{\"id\":\"CASH_005_C01\",\"value\":\"TRUE\",\"fact_ids\":[\"F1\"],\"reason\":\"F1 подтверждает приём наличных от клиента\"},{\"id\":\"CASH_005_C02\",\"value\":\"TRUE\",\"fact_ids\":[\"F2\"],\"reason\":\"F2 подтверждает присутствие клиента до завершения пересчёта, что исключает полный обзор зоны\"},{\"id\":\"CASH_005_C03\",\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет данных о том, что пересчёт является внутренней обработкой, но не указано, что он не является последующей обработкой\"}],\"reason\":\"Пересчёт денег без клиента не наблюдается, так как клиент присутствует и пересчёт происходит в его присутствии.\"}",
+          "output_tokens": 202,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_C01",
+          "raw": "{\"value\":\"TRUE\",\"fact_ids\":[\"F1\"],\"reason\":\"F1 explicitly states that the cashier accepts cash in the presence of the client, which matches the statement 'This is a continuing cash receipt by the client'.\"}",
+          "output_tokens": 47,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_C02",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет фактов, которые бы прямо подтверждали или опровергали утверждение о том, что присутствие клиента исключено по полному обзору зоны, а не по обрезанному кадру.\"}",
+          "output_tokens": 67,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_C03",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет прямых фактов, которые бы подтвердили или опровергли, является ли пересчёт последующей внутренней обработкой или нет.\"}",
+          "output_tokens": 50,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_A01",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет информации о том, находится ли клиент вне поля зрения камеры.\"}",
+          "output_tokens": 28,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_005_A02",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет прямых фактов, подтверждающих или опровергающих, что обработка является внутренней и относится к уже принятым деньгам.\"}",
+          "output_tokens": 50,
+          "finish_reason": "eos"
+        }
+      ],
+      "finish_reason": "eos",
+      "seconds": 6.911,
+      "validated": {
+        "assessment": "INSUFFICIENT_EVIDENCE",
+        "sources": [
+          {
+            "document": "Об утверждении Правил осуществления кассовых операций и операций по инкассации банкнот, монет и ценностей в банках второго уровня, филиалах банков-нерезидентов Республики Казахстан, Национальном операторе почты и юридических лицах, исключительной деятельностью которых является инкассация банкнот, монет и ценностей",
+            "section": "Правила, пункт 20",
+            "url": "https://adilet.zan.kz/rus/docs/V1900019680#z111",
+            "quote": "20. Наличные деньги принимаются и пересчитываются кассовым работником в присутствии клиента."
+          }
+        ],
+        "corpus_sha256": "c076a05687ff793dc120876bae9348bfc11744f742f97c454782b582d6db0283",
+        "source_checked_at": "2026-10-18T01:00:57.957506+00:00",
+        "rule_ids": [
+          "CASH_005"
+        ],
+        "reason": "Проверка каждого условия по фактам; объяснения приведены отдельно.",
+        "conditions": [
+          {
+            "value": "TRUE",
+            "fact_ids": [
+              "F1"
+            ],
+            "reason": "F1 explicitly states that the cashier accepts cash in the presence of the client, which matches the statement 'This is a continuing cash receipt by the client'.",
+            "id": "CASH_005_C01"
+          },
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет фактов, которые бы прямо подтверждали или опровергали утверждение о том, что присутствие клиента исключено по полному обзору зоны, а не по обрезанному кадру.",
+            "id": "CASH_005_C02"
+          },
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет прямых фактов, которые бы подтвердили или опровергли, является ли пересчёт последующей внутренней обработкой или нет.",
+            "id": "CASH_005_C03"
+          },
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет информации о том, находится ли клиент вне поля зрения камеры.",
+            "id": "CASH_005_A01"
+          },
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет прямых фактов, подтверждающих или опровергающих, что обработка является внутренней и относится к уже принятым деньгам.",
+            "id": "CASH_005_A02"
+          }
+        ]
+      }
+    },
+    {
+      "case": "cup_only",
+      "synthetic": true,
+      "facts": [
+        {
+          "id": "F1",
+          "text": "На рабочем столе видна чашка; кассир пьёт из неё. Принадлежность чашки и наличие разрешения неизвестны.",
+          "pts_sec": [
+            0.0
+          ],
+          "certainty": "clear"
+        }
+      ],
+      "candidate_ids": [
+        "CASH_008",
+        "CASH_006",
+        "CASH_064",
+        "CASH_001"
+      ],
+      "raw": "{\"rule_id\": \"CASH_001\", \"conditions\": [{\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет прямых фактов, подтверждающих, что зона является кассовым узлом.\", \"id\": \"CASH_001_C01\"}, {\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет прямых фактов о принадлежности чашки работнику или о том, что она является личной вещью.\", \"id\": \"CASH_001_C02\"}, {\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет информации о хранении или ошибочном распознавании служебного предмета; чашка может быть служебной или личной, и её наличие не подтверждает или опровергает хранение.\", \"id\": \"CASH_001_C03\"}, {\"value\": \"UNKNOWN\", \"fact_ids\": [], \"reason\": \"Нет информации о исключениях п.12 или о том, относится ли предмет к ним.\", \"id\": \"CASH_001_C04\"}, {\"value\": \"TRUE\", \"fact_ids\": [\"F1\"], \"reason\": \"F1 explicitly states that the ownership or affiliation of the cup is unknown.\", \"id\": \"CASH_001_A01\"}], \"reason\": \"Проверка каждого условия по фактам; объяснения приведены отдельно.\"}",
+      "output_tokens": 422,
+      "stages": [
+        {
+          "raw": "{\"rule_id\":\"CASH_001\",\"conditions\":[{\"id\":\"CASH_001_C01\",\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Не указано, является ли рабочий стол кассовым узлом\"},{\"id\":\"CASH_001_C02\",\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Неизвестно, является ли чашка личной вещью работника\"},{\"id\":\"CASH_001_C03\",\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Неясно, хранится ли чашка или это просто предмет на столе\"},{\"id\":\"CASH_001_C04\",\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Неизвестно, относится ли чашка к исключениям\"}],\"reason\":\"Чашка на рабочем столе — не подтверждено, что это личная вещь работника, хранение или исключение\"}",
+          "output_tokens": 211,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_001_C01",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет прямых фактов, подтверждающих, что зона является кассовым узлом.\"}",
+          "output_tokens": 36,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_001_C02",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет прямых фактов о принадлежности чашки работнику или о том, что она является личной вещью.\"}",
+          "output_tokens": 44,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_001_C03",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет информации о хранении или ошибочном распознавании служебного предмета; чашка может быть служебной или личной, и её наличие не подтверждает или опровергает хранение.\"}",
+          "output_tokens": 64,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_001_C04",
+          "raw": "{\"value\":\"UNKNOWN\",\"fact_ids\":[],\"reason\":\"Нет информации о исключениях п.12 или о том, относится ли предмет к ним.\"}",
+          "output_tokens": 37,
+          "finish_reason": "eos"
+        },
+        {
+          "condition_id": "CASH_001_A01",
+          "raw": "{\"value\":\"TRUE\",\"fact_ids\":[\"F1\"],\"reason\":\"F1 explicitly states that the ownership or affiliation of the cup is unknown.\"}",
+          "output_tokens": 30,
+          "finish_reason": "eos"
+        }
+      ],
+      "finish_reason": "eos",
+      "seconds": 6.72,
+      "validated": {
+        "assessment": "INSUFFICIENT_EVIDENCE",
+        "sources": [
+          {
+            "document": "Об утверждении Правил осуществления кассовых операций и операций по инкассации банкнот, монет и ценностей в банках второго уровня, филиалах банков-нерезидентов Республики Казахстан, Национальном операторе почты и юридических лицах, исключительной деятельностью которых является инкассация банкнот, монет и ценностей",
+            "section": "Правила, пункт 12",
+            "url": "https://adilet.zan.kz/rus/docs/V1900019680#z81",
+            "quote": "12. Хранение личных вещей, наличных денег и ценностей работников банка осуществляется вне кассового узла в порядке, установленном внутренними документами банка."
+          }
+        ],
+        "corpus_sha256": "c076a05687ff793dc120876bae9348bfc11744f742f97c454782b582d6db0283",
+        "source_checked_at": "2026-10-18T01:00:57.957506+00:00",
+        "rule_ids": [
+          "CASH_001"
+        ],
+        "reason": "Проверка каждого условия по фактам; объяснения приведены отдельно.",
+        "conditions": [
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет прямых фактов, подтверждающих, что зона является кассовым узлом.",
+            "id": "CASH_001_C01"
+          },
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет прямых фактов о принадлежности чашки работнику или о том, что она является личной вещью.",
+            "id": "CASH_001_C02"
+          },
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет информации о хранении или ошибочном распознавании служебного предмета; чашка может быть служебной или личной, и её наличие не подтверждает или опровергает хранение.",
+            "id": "CASH_001_C03"
+          },
+          {
+            "value": "UNKNOWN",
+            "fact_ids": [],
+            "reason": "Нет информации о исключениях п.12 или о том, относится ли предмет к ним.",
+            "id": "CASH_001_C04"
+          },
+          {
+            "value": "TRUE",
+            "fact_ids": [
+              "F1"
+            ],
+            "reason": "F1 explicitly states that the ownership or affiliation of the cup is unknown.",
+            "id": "CASH_001_A01"
+          }
+        ]
+      }
+    }
+  ],
+  "peak_vram_mib": 8994.1591796875,
+  "wall_sec": 22.221234718803316,
+  "rss_peak_kib": 6752644
+}

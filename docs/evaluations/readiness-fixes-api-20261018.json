@@ -1,0 +1,26 @@
+{
+  "health": 200,
+  "missing_key": 401,
+  "wrong_key": 401,
+  "review_removed": 404,
+  "empty": 400,
+  "wrong_format": 400,
+  "long": {
+    "job_id": "c7302dfbf5c8",
+    "status": "done",
+    "verdict": "no_violation",
+    "elapsed_sec": 18.15,
+    "states": [
+      "done",
+      "processing"
+    ],
+    "events": []
+  },
+  "final_health": {
+    "status": "ok",
+    "worker": "ready",
+    "device": "cuda",
+    "queue": 0,
+    "busy": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "transport": "Tailscale Funnel public HTTPS, client on Mac",
+  "test": "Two concurrent original MOV uploads",
+  "videos": [
+    "Х-25.mov",
+    "Х-46.mov"
+  ],
+  "result": "ReadTimeout before job_id on at least one upload; script aborted before summary",
+  "read_timeout_sec": 90,
+  "note": "Do not treat successful GET /docs or /health as proof of MOV end-to-end reliability.",
+  "server_repeat": {
+    "Х-46.mov": {
+      "status": "done",
+      "verdict": "violation",
+      "elapsed_sec": 95.32,
+      "job_id": "65ae87e325f7"
+    },
+    "Х-25.mov": {
+      "error": "ReadTimeout before job_id"
+    },
+    "long_test": "not reached"
+  }
+}

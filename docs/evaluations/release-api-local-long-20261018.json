@@ -1,0 +1,27 @@
+{
+  "health": 200,
+  "missing_key": 401,
+  "wrong_key": 401,
+  "review_removed": 404,
+  "empty": 400,
+  "wrong_format": 400,
+  "long": {
+    "job_id": "dc3cd50e512e",
+    "status": "done",
+    "verdict": "no_violation",
+    "elapsed_sec": 17.13,
+    "states": [
+      "done",
+      "processing"
+    ],
+    "events": []
+  },
+  "final_health": {
+    "status": "ok",
+    "worker": "ready",
+    "device": "cuda",
+    "queue": 0,
+    "busy": true
+  },
+  "transport": "Loopback gateway on server; excludes external network"
+}

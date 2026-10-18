@@ -1,0 +1,740 @@
+{
+  "gpu": {
+    "checked": 42,
+    "differences": [],
+    "files": [
+      {
+        "file": "forte/evidence_labels.py",
+        "local": "678f950838de14574d909fe014bb9e08d359061f4a61d238555f28b156b1b2cc",
+        "server": "678f950838de14574d909fe014bb9e08d359061f4a61d238555f28b156b1b2cc",
+        "match": true
+      },
+      {
+        "file": "forte/labels.py",
+        "local": "d6422893e32b2f59bb94f5db05ee2d0e2e231d21fdb17ae0607a333d5044de16",
+        "server": "d6422893e32b2f59bb94f5db05ee2d0e2e231d21fdb17ae0607a333d5044de16",
+        "match": true
+      },
+      {
+        "file": "forte/timeline.py",
+        "local": "79f8b856ab3f8a4d75332a41178fc638223cd437ed24e595ae36305e65e0706c",
+        "server": "79f8b856ab3f8a4d75332a41178fc638223cd437ed24e595ae36305e65e0706c",
+        "match": true
+      },
+      {
+        "file": "forte/embed.py",
+        "local": "2074bf7e651a1ce2af3d045cf259cf0e76bd2054cde74893c12e09a089d62572",
+        "server": "2074bf7e651a1ce2af3d045cf259cf0e76bd2054cde74893c12e09a089d62572",
+        "match": true
+      },
+      {
+        "file": "forte/registry.py",
+        "local": "f0360f351368a419c2085508cc671303c658debb1902db060d49a94f504ea18b",
+        "server": "f0360f351368a419c2085508cc671303c658debb1902db060d49a94f504ea18b",
+        "match": true
+      },
+      {
+        "file": "forte/__init__.py",
+        "local": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "server": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "match": true
+      },
+      {
+        "file": "forte/rules.py",
+        "local": "a54692ef67050c959018962af1b1ce37f664094ef47c6bf25d48636dc951049b",
+        "server": "a54692ef67050c959018962af1b1ce37f664094ef47c6bf25d48636dc951049b",
+        "match": true
+      },
+      {
+        "file": "forte/scene.py",
+        "local": "589832ccec40f2cf326d514d7e1318e98cb4a110f23d3021be52b7451e899b2b",
+        "server": "589832ccec40f2cf326d514d7e1318e98cb4a110f23d3021be52b7451e899b2b",
+        "match": true
+      },
+      {
+        "file": "forte/vlm_plan.py",
+        "local": "5ffeecc9237b8a9a8de3c7bc176422a336ec7f4a559c71d93e4e7ed0c6e42488",
+        "server": "5ffeecc9237b8a9a8de3c7bc176422a336ec7f4a559c71d93e4e7ed0c6e42488",
+        "match": true
+      },
+      {
+        "file": "forte/vlm.py",
+        "local": "637647255d252f3df4b2e4edb48d0d280dda581bea6b6bd77c59b1c631849b68",
+        "server": "637647255d252f3df4b2e4edb48d0d280dda581bea6b6bd77c59b1c631849b68",
+        "match": true
+      },
+      {
+        "file": "forte/machine.py",
+        "local": "2ec3451d6d4fcf7050c54f0d62e53e39da61a5b53231f0ed4e662713634d8716",
+        "server": "2ec3451d6d4fcf7050c54f0d62e53e39da61a5b53231f0ed4e662713634d8716",
+        "match": true
+      },
+      {
+        "file": "forte/pipeline.py",
+        "local": "3c1db6b6b1ea486338080bf4ac1b0a5b3f4a5f6836b24a376f961f6ce31f2e9d",
+        "server": "3c1db6b6b1ea486338080bf4ac1b0a5b3f4a5f6836b24a376f961f6ce31f2e9d",
+        "match": true
+      },
+      {
+        "file": "forte/evidence_selection.py",
+        "local": "17d116ef00049d233536daa443c08a0331e8616ba363fe23cd9d0270ffea1f8b",
+        "server": "17d116ef00049d233536daa443c08a0331e8616ba363fe23cd9d0270ffea1f8b",
+        "match": true
+      },
+      {
+        "file": "forte/detectors.py",
+        "local": "318e55f146a97555f5a548a80c5b4e32dd2a5e9108d331809ada7113f54060f5",
+        "server": "318e55f146a97555f5a548a80c5b4e32dd2a5e9108d331809ada7113f54060f5",
+        "match": true
+      },
+      {
+        "file": "forte/states.py",
+        "local": "7cff31bcd2bb93baef953751a1afb49bb57f242462d6ce24f14618353962cda2",
+        "server": "7cff31bcd2bb93baef953751a1afb49bb57f242462d6ce24f14618353962cda2",
+        "match": true
+      },
+      {
+        "file": "forte/norms.py",
+        "local": "4646ab5ac025c95054571c9847fed1430a6350a556542c411e6f55b808f9579f",
+        "server": "4646ab5ac025c95054571c9847fed1430a6350a556542c411e6f55b808f9579f",
+        "match": true
+      },
+      {
+        "file": "forte/video.py",
+        "local": "f5feffd81abacaf56457f1bad5be9a00362d4dfee428588d295a6d626031a80b",
+        "server": "f5feffd81abacaf56457f1bad5be9a00362d4dfee428588d295a6d626031a80b",
+        "match": true
+      },
+      {
+        "file": "models/safe_clf.joblib",
+        "local": "808e32e0b78640a4549ebc3fda5fe0bc1851219024fe70b832d2c0d75f6b8635",
+        "server": "808e32e0b78640a4549ebc3fda5fe0bc1851219024fe70b832d2c0d75f6b8635",
+        "match": true
+      },
+      {
+        "file": "models/money_clf.joblib",
+        "local": "45a41fc732ac89b8e8fed2f3cac30be28131f81c89a90fc26b655ac877efe143",
+        "server": "45a41fc732ac89b8e8fed2f3cac30be28131f81c89a90fc26b655ac877efe143",
+        "match": true
+      },
+      {
+        "file": "service/worker.py",
+        "local": "e6d3b082c16bf3eac977b1745637a2491c26c261570e4b641bdb3221fa416e6a",
+        "server": "e6d3b082c16bf3eac977b1745637a2491c26c261570e4b641bdb3221fa416e6a",
+        "match": true
+      },
+      {
+        "file": "service/gateway.py",
+        "local": "3d09fd0a9851e8fa65c0bf2cb34f062eab53d7a6bd15d2e71d683349e43e2209",
+        "server": "3d09fd0a9851e8fa65c0bf2cb34f062eab53d7a6bd15d2e71d683349e43e2209",
+        "match": true
+      },
+      {
+        "file": "service/event_wording.py",
+        "local": "bea1bd1b8685c549094b92cf1e646eb1f4931cb995634a69a696e631ec4cc7c0",
+        "server": "bea1bd1b8685c549094b92cf1e646eb1f4931cb995634a69a696e631ec4cc7c0",
+        "match": true
+      },
+      {
+        "file": "service/__init__.py",
+        "local": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "server": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "match": true
+      },
+      {
+        "file": "service/jobs.py",
+        "local": "850e398d512dc66f15bbae657880b0d7f4b1e79929bad40e0125a42fa14de7e7",
+        "server": "850e398d512dc66f15bbae657880b0d7f4b1e79929bad40e0125a42fa14de7e7",
+        "match": true
+      },
+      {
+        "file": "service/regulatory.py",
+        "local": "43af0220e421ecf3e3ca62167d14b1693962ecfa160ef6ab5f5a1de251125053",
+        "server": "43af0220e421ecf3e3ca62167d14b1693962ecfa160ef6ab5f5a1de251125053",
+        "match": true
+      },
+      {
+        "file": "service/logs.py",
+        "local": "688c0964471f0a0cd4dae067e1df6898041ced72bf0b2e4b6da59d00e0173eb4",
+        "server": "688c0964471f0a0cd4dae067e1df6898041ced72bf0b2e4b6da59d00e0173eb4",
+        "match": true
+      },
+      {
+        "file": "service/app.py",
+        "local": "58672de8ec3d7da46d501f55f5147cb7af0731bf14099322eca83d388f1d93f9",
+        "server": "58672de8ec3d7da46d501f55f5147cb7af0731bf14099322eca83d388f1d93f9",
+        "match": true
+      },
+      {
+        "file": "service/api_docs.py",
+        "local": "a23af102ee34387896d55bffba80c1c8ddc2bdfae9c2dd041edc6558e0005221",
+        "server": "a23af102ee34387896d55bffba80c1c8ddc2bdfae9c2dd041edc6558e0005221",
+        "match": true
+      },
+      {
+        "file": "service/regulatory_search.py",
+        "local": "08574da149e3a1f6014de5d7943340714fa6307975f60f68df6932b931f24f39",
+        "server": "08574da149e3a1f6014de5d7943340714fa6307975f60f68df6932b931f24f39",
+        "match": true
+      },
+      {
+        "file": "assets/fonts/DejaVuSans.ttf",
+        "local": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+        "server": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
+        "match": true
+      },
+      {
+        "file": "assets/fonts/LICENSE-DejaVu.txt",
+        "local": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9",
+        "server": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9",
+        "match": true
+      },
+      {
+        "file": "service/static/forte_docs.css",
+        "local": "6b1745d448496981345394089024fa67ed00978f28b1db304fc5be441334569f",
+        "server": "6b1745d448496981345394089024fa67ed00978f28b1db304fc5be441334569f",
+        "match": true
+      },
+      {
+        "file": "service/static/forte_docs_auth.js",
+        "local": "fc1d8cb229db56a95d1f9d9e8c6dd68ac490cc4ec2049eab08bd0ed55db4b191",
+        "server": "fc1d8cb229db56a95d1f9d9e8c6dd68ac490cc4ec2049eab08bd0ed55db4b191",
+        "match": true
+      },
+      {
+        "file": "service/static/index.html",
+        "local": "9480e54f30b0cc02fb2655688e8398df07b56ec7721e16c7ac3dae22d125511d",
+        "server": "9480e54f30b0cc02fb2655688e8398df07b56ec7721e16c7ac3dae22d125511d",
+        "match": true
+      },
+      {
+        "file": "service/static/forte_docs_shell.html",
+        "local": "66aca7514a16984a9efa981b855f6dab8d8e00ff1e53f37d51fc97995e3e93bf",
+        "server": "66aca7514a16984a9efa981b855f6dab8d8e00ff1e53f37d51fc97995e3e93bf",
+        "match": true
+      },
+      {
+        "file": "service/static/style.css",
+        "local": "1e7f934b3a67ddc2109eedb628952fe1547d31cd0ddd9f06370973b7283f3eab",
+        "server": "1e7f934b3a67ddc2109eedb628952fe1547d31cd0ddd9f06370973b7283f3eab",
+        "match": true
+      },
+      {
+        "file": "service/static/app.js",
+        "local": "ce3949c40d06a9a3342125e9ebdf6486fd6321ab6b30a72f12ffdf108dac136f",
+        "server": "ce3949c40d06a9a3342125e9ebdf6486fd6321ab6b30a72f12ffdf108dac136f",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/version.json",
+        "local": "6ffa030f1d8063fa98607a5c212bd4541cab43c86b5d6b0a62a2a5619239cdaf",
+        "server": "6ffa030f1d8063fa98607a5c212bd4541cab43c86b5d6b0a62a2a5619239cdaf",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/LICENSE",
+        "local": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "server": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/swagger-ui.css",
+        "local": "1ac324f7dcd27e4b9386b4bd6421271ec147e922a22c05ba24b11515e9aa6321",
+        "server": "1ac324f7dcd27e4b9386b4bd6421271ec147e922a22c05ba24b11515e9aa6321",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/swagger-ui-bundle.js",
+        "local": "3861ec4cc8e7b9fa9f250280da9350436e418137788282c753b9a2ac5fb7bd2f",
+        "server": "3861ec4cc8e7b9fa9f250280da9350436e418137788282c753b9a2ac5fb7bd2f",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/NOTICE",
+        "local": "0d20d1adef18aee3f40dd258172155521ce702ac445cb5f7b7d60ed32dad2fb2",
+        "server": "0d20d1adef18aee3f40dd258172155521ce702ac445cb5f7b7d60ed32dad2fb2",
+        "match": true
+      }
+    ]
+  },
+  "web": {
+    "checked": 38,
+    "differences": [],
+    "files": [
+      {
+        "file": "regulatory/regulatory_rules.schema.json",
+        "local": "b6dde1acc22d4cfe533533405997455259f804314aec751239cbb9fcd3bbf9d8",
+        "server": "b6dde1acc22d4cfe533533405997455259f804314aec751239cbb9fcd3bbf9d8",
+        "match": true
+      },
+      {
+        "file": "regulatory/provenance.json",
+        "local": "33fb9138062a05d7d809fec40ba19d71c4df02335c2f315aeaf56c825c18cf1b",
+        "server": "33fb9138062a05d7d809fec40ba19d71c4df02335c2f315aeaf56c825c18cf1b",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_audit.json",
+        "local": "02477cc9548c2c652d494a5cd035ce9c77001cd33ad8db16f66b2651071cc64e",
+        "server": "02477cc9548c2c652d494a5cd035ce9c77001cd33ad8db16f66b2651071cc64e",
+        "match": true
+      },
+      {
+        "file": "regulatory/applicability_sources.json",
+        "local": "541a228c0b8f73a8c67e5ee85a720320553d19ea0fa23d725fbc5b3583c966e2",
+        "server": "541a228c0b8f73a8c67e5ee85a720320553d19ea0fa23d725fbc5b3583c966e2",
+        "match": true
+      },
+      {
+        "file": "regulatory/regulatory_rules.json",
+        "local": "efb742bab7c40234aa2e9526a077f5dfa5113035e3a583091c741ecf6dcc3f08",
+        "server": "efb742bab7c40234aa2e9526a077f5dfa5113035e3a583091c741ecf6dcc3f08",
+        "match": true
+      },
+      {
+        "file": "service/worker.py",
+        "local": "e6d3b082c16bf3eac977b1745637a2491c26c261570e4b641bdb3221fa416e6a",
+        "server": "e6d3b082c16bf3eac977b1745637a2491c26c261570e4b641bdb3221fa416e6a",
+        "match": true
+      },
+      {
+        "file": "service/gateway.py",
+        "local": "3d09fd0a9851e8fa65c0bf2cb34f062eab53d7a6bd15d2e71d683349e43e2209",
+        "server": "3d09fd0a9851e8fa65c0bf2cb34f062eab53d7a6bd15d2e71d683349e43e2209",
+        "match": true
+      },
+      {
+        "file": "service/event_wording.py",
+        "local": "bea1bd1b8685c549094b92cf1e646eb1f4931cb995634a69a696e631ec4cc7c0",
+        "server": "bea1bd1b8685c549094b92cf1e646eb1f4931cb995634a69a696e631ec4cc7c0",
+        "match": true
+      },
+      {
+        "file": "service/__init__.py",
+        "local": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "server": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "match": true
+      },
+      {
+        "file": "service/jobs.py",
+        "local": "850e398d512dc66f15bbae657880b0d7f4b1e79929bad40e0125a42fa14de7e7",
+        "server": "850e398d512dc66f15bbae657880b0d7f4b1e79929bad40e0125a42fa14de7e7",
+        "match": true
+      },
+      {
+        "file": "service/regulatory.py",
+        "local": "43af0220e421ecf3e3ca62167d14b1693962ecfa160ef6ab5f5a1de251125053",
+        "server": "43af0220e421ecf3e3ca62167d14b1693962ecfa160ef6ab5f5a1de251125053",
+        "match": true
+      },
+      {
+        "file": "service/logs.py",
+        "local": "688c0964471f0a0cd4dae067e1df6898041ced72bf0b2e4b6da59d00e0173eb4",
+        "server": "688c0964471f0a0cd4dae067e1df6898041ced72bf0b2e4b6da59d00e0173eb4",
+        "match": true
+      },
+      {
+        "file": "service/app.py",
+        "local": "58672de8ec3d7da46d501f55f5147cb7af0731bf14099322eca83d388f1d93f9",
+        "server": "58672de8ec3d7da46d501f55f5147cb7af0731bf14099322eca83d388f1d93f9",
+        "match": true
+      },
+      {
+        "file": "service/api_docs.py",
+        "local": "a23af102ee34387896d55bffba80c1c8ddc2bdfae9c2dd041edc6558e0005221",
+        "server": "a23af102ee34387896d55bffba80c1c8ddc2bdfae9c2dd041edc6558e0005221",
+        "match": true
+      },
+      {
+        "file": "service/regulatory_search.py",
+        "local": "08574da149e3a1f6014de5d7943340714fa6307975f60f68df6932b931f24f39",
+        "server": "08574da149e3a1f6014de5d7943340714fa6307975f60f68df6932b931f24f39",
+        "match": true
+      },
+      {
+        "file": "service/static/forte_docs.css",
+        "local": "6b1745d448496981345394089024fa67ed00978f28b1db304fc5be441334569f",
+        "server": "6b1745d448496981345394089024fa67ed00978f28b1db304fc5be441334569f",
+        "match": true
+      },
+      {
+        "file": "service/static/forte_docs_auth.js",
+        "local": "fc1d8cb229db56a95d1f9d9e8c6dd68ac490cc4ec2049eab08bd0ed55db4b191",
+        "server": "fc1d8cb229db56a95d1f9d9e8c6dd68ac490cc4ec2049eab08bd0ed55db4b191",
+        "match": true
+      },
+      {
+        "file": "service/static/index.html",
+        "local": "9480e54f30b0cc02fb2655688e8398df07b56ec7721e16c7ac3dae22d125511d",
+        "server": "9480e54f30b0cc02fb2655688e8398df07b56ec7721e16c7ac3dae22d125511d",
+        "match": true
+      },
+      {
+        "file": "service/static/forte_docs_shell.html",
+        "local": "66aca7514a16984a9efa981b855f6dab8d8e00ff1e53f37d51fc97995e3e93bf",
+        "server": "66aca7514a16984a9efa981b855f6dab8d8e00ff1e53f37d51fc97995e3e93bf",
+        "match": true
+      },
+      {
+        "file": "service/static/style.css",
+        "local": "1e7f934b3a67ddc2109eedb628952fe1547d31cd0ddd9f06370973b7283f3eab",
+        "server": "1e7f934b3a67ddc2109eedb628952fe1547d31cd0ddd9f06370973b7283f3eab",
+        "match": true
+      },
+      {
+        "file": "service/static/app.js",
+        "local": "ce3949c40d06a9a3342125e9ebdf6486fd6321ab6b30a72f12ffdf108dac136f",
+        "server": "ce3949c40d06a9a3342125e9ebdf6486fd6321ab6b30a72f12ffdf108dac136f",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/version.json",
+        "local": "6ffa030f1d8063fa98607a5c212bd4541cab43c86b5d6b0a62a2a5619239cdaf",
+        "server": "6ffa030f1d8063fa98607a5c212bd4541cab43c86b5d6b0a62a2a5619239cdaf",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/LICENSE",
+        "local": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "server": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/swagger-ui.css",
+        "local": "1ac324f7dcd27e4b9386b4bd6421271ec147e922a22c05ba24b11515e9aa6321",
+        "server": "1ac324f7dcd27e4b9386b4bd6421271ec147e922a22c05ba24b11515e9aa6321",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/swagger-ui-bundle.js",
+        "local": "3861ec4cc8e7b9fa9f250280da9350436e418137788282c753b9a2ac5fb7bd2f",
+        "server": "3861ec4cc8e7b9fa9f250280da9350436e418137788282c753b9a2ac5fb7bd2f",
+        "match": true
+      },
+      {
+        "file": "service/static/swagger/NOTICE",
+        "local": "0d20d1adef18aee3f40dd258172155521ce702ac445cb5f7b7d60ed32dad2fb2",
+        "server": "0d20d1adef18aee3f40dd258172155521ce702ac445cb5f7b7d60ed32dad2fb2",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V2400035552.json",
+        "local": "fa3941960504ab26a554928e7ee00506a5d145c217c79481ded28c64ac1e84cd",
+        "server": "fa3941960504ab26a554928e7ee00506a5d145c217c79481ded28c64ac1e84cd",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V1900018545.json",
+        "local": "e7e2752ae40cc6d4a84bc4405714bc62054d7d057ed0a3187c35c5bd1c6c3790",
+        "server": "e7e2752ae40cc6d4a84bc4405714bc62054d7d057ed0a3187c35c5bd1c6c3790",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V2600038217.json",
+        "local": "1e6efd2badfeeb2b667515b3d1ec0752301c47189e50493d3e1341124d0dd611",
+        "server": "1e6efd2badfeeb2b667515b3d1ec0752301c47189e50493d3e1341124d0dd611",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V2600039191.json",
+        "local": "26dc2d41f5308e6bf9941879b5a2c8b068a35707cd2132ab2e8669f26cdf4ca4",
+        "server": "26dc2d41f5308e6bf9941879b5a2c8b068a35707cd2132ab2e8669f26cdf4ca4",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V010001482_.json",
+        "local": "90fc9eb7d6abececa08f40febc3b2c9a306e4e3cd73a64fa9236d598dd3a90dd",
+        "server": "90fc9eb7d6abececa08f40febc3b2c9a306e4e3cd73a64fa9236d598dd3a90dd",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V1900019391.json",
+        "local": "178d285c58b4935d3a96df066fad9e705f9790c15f5630d925b125b49844e19f",
+        "server": "178d285c58b4935d3a96df066fad9e705f9790c15f5630d925b125b49844e19f",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V2000020075.json",
+        "local": "4f1a6b11d7f592a02352a4edfc3fc5bdfc4bffc4b5003d60d8f131534e0f6247",
+        "server": "4f1a6b11d7f592a02352a4edfc3fc5bdfc4bffc4b5003d60d8f131534e0f6247",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V1200008080.json",
+        "local": "d88bb51a4e5865981ff458fd9ed42df28d90974ff3d4fba0496537e5740ace1a",
+        "server": "d88bb51a4e5865981ff458fd9ed42df28d90974ff3d4fba0496537e5740ace1a",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V030002689_.json",
+        "local": "2a24184446eadc8047b2686b80a0ba79fcba61aad731d9cea2355264198a564f",
+        "server": "2a24184446eadc8047b2686b80a0ba79fcba61aad731d9cea2355264198a564f",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V1700016120.json",
+        "local": "2f995caa7a02081388b9bbb1ac13cd780a133eb2b591499333c289006edb0028",
+        "server": "2f995caa7a02081388b9bbb1ac13cd780a133eb2b591499333c289006edb0028",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V1900019680.json",
+        "local": "4116dd7cdcddc14898658bacb604d0b08ddec8dca730263fb7a2f90ad3cb4090",
+        "server": "4116dd7cdcddc14898658bacb604d0b08ddec8dca730263fb7a2f90ad3cb4090",
+        "match": true
+      },
+      {
+        "file": "regulatory/source_evidence/V2500037429.json",
+        "local": "d2e237b0981573d15c80e38749640eee7a64b630df72f02b0096044f240070f0",
+        "server": "d2e237b0981573d15c80e38749640eee7a64b630df72f02b0096044f240070f0",
+        "match": true
+      }
+    ]
+  },
+  "front": {
+    "checked": 40,
+    "differences": [],
+    "files": [
+      {
+        "file": "dist/index.html",
+        "local": "ca1b46a01028f4e26eecf331cef4cbf70561f8343174130d8a8981943bc46904",
+        "server": "ca1b46a01028f4e26eecf331cef4cbf70561f8343174130d8a8981943bc46904",
+        "match": true
+      },
+      {
+        "file": "dist/favicon.svg",
+        "local": "90167e72b98901502ad39054836018189ac2da3f2d529280c7841e4686509049",
+        "server": "90167e72b98901502ad39054836018189ac2da3f2d529280c7841e4686509049",
+        "match": true
+      },
+      {
+        "file": "src/App.tsx",
+        "local": "2e58573024f1b993cbee39255971082c354e8a59fd88aadeabe096346eee8a42",
+        "server": "2e58573024f1b993cbee39255971082c354e8a59fd88aadeabe096346eee8a42",
+        "match": true
+      },
+      {
+        "file": "src/main.tsx",
+        "local": "1cbb505357f243ed46baab66e0b9e54ac4f069b0163046756892f1d7f5392a26",
+        "server": "1cbb505357f243ed46baab66e0b9e54ac4f069b0163046756892f1d7f5392a26",
+        "match": true
+      },
+      {
+        "file": "src/styles.css",
+        "local": "91fbd0f5af4b57f20f12ec331661846d5890c20c53b417c3b4373c9565547317",
+        "server": "91fbd0f5af4b57f20f12ec331661846d5890c20c53b417c3b4373c9565547317",
+        "match": true
+      },
+      {
+        "file": "src/vite-env.d.ts",
+        "local": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+        "server": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+        "match": true
+      },
+      {
+        "file": "src/pages.css",
+        "local": "430f3499ba91be500f6e19384d3ae35475a176afce16e771d8fa1f75c66a5ef0",
+        "server": "430f3499ba91be500f6e19384d3ae35475a176afce16e771d8fa1f75c66a5ef0",
+        "match": true
+      },
+      {
+        "file": "src/motion.css",
+        "local": "1021d23353ac900580f214d369e01ba3664c67bb1e74ff0de24c8f0fd33756d5",
+        "server": "1021d23353ac900580f214d369e01ba3664c67bb1e74ff0de24c8f0fd33756d5",
+        "match": true
+      },
+      {
+        "file": "src/components/FolderCard.tsx",
+        "local": "fd8893c84aee1003c70105df8aca02bc62fd58bb8707f152ff391d93222acd2f",
+        "server": "fd8893c84aee1003c70105df8aca02bc62fd58bb8707f152ff391d93222acd2f",
+        "match": true
+      },
+      {
+        "file": "src/components/ServiceConnection.tsx",
+        "local": "c7eaf319529c24a452d49d2a6f31275e9c222623b397cd6e32e9a2132deca438",
+        "server": "c7eaf319529c24a452d49d2a6f31275e9c222623b397cd6e32e9a2132deca438",
+        "match": true
+      },
+      {
+        "file": "src/components/BrandIntro.tsx",
+        "local": "d925fd5c0b61a060f3ea34de8ddd755058f26fa869ea3d1c4799d3301d2b5511",
+        "server": "d925fd5c0b61a060f3ea34de8ddd755058f26fa869ea3d1c4799d3301d2b5511",
+        "match": true
+      },
+      {
+        "file": "src/components/SidebarFaq.tsx",
+        "local": "cb3a9cb8a90456c4f917c8e594072857766f1795727538fcf72565d60447a298",
+        "server": "cb3a9cb8a90456c4f917c8e594072857766f1795727538fcf72565d60447a298",
+        "match": true
+      },
+      {
+        "file": "src/components/ReviewDetail.tsx",
+        "local": "e8696cc88326072a2f070aba57f7367574e56e467041ff27bacdfa76d82016c5",
+        "server": "e8696cc88326072a2f070aba57f7367574e56e467041ff27bacdfa76d82016c5",
+        "match": true
+      },
+      {
+        "file": "src/components/ForteSculpture.tsx",
+        "local": "9886fd3e75011087efec25ae9a1e1fdfd32dfb89260afeead65df5cb12adcaa1",
+        "server": "9886fd3e75011087efec25ae9a1e1fdfd32dfb89260afeead65df5cb12adcaa1",
+        "match": true
+      },
+      {
+        "file": "src/components/brandMotion.ts",
+        "local": "b2d06b36745f7894a213747d5c065d3b67d4ddaf160b600f8d0fca37c50d2751",
+        "server": "b2d06b36745f7894a213747d5c065d3b67d4ddaf160b600f8d0fca37c50d2751",
+        "match": true
+      },
+      {
+        "file": "src/components/Overview.tsx",
+        "local": "0f58bf918e3279795b9002a84c5a3448f1d42963e40dce03a69ef017e8778d5b",
+        "server": "0f58bf918e3279795b9002a84c5a3448f1d42963e40dce03a69ef017e8778d5b",
+        "match": true
+      },
+      {
+        "file": "src/components/Icons.ts",
+        "local": "d340c16f7fbf6d723884f74b4e4cb5374da379abe1c931931f444842d8fff317",
+        "server": "d340c16f7fbf6d723884f74b4e4cb5374da379abe1c931931f444842d8fff317",
+        "match": true
+      },
+      {
+        "file": "src/components/ConnectionSettings.tsx",
+        "local": "748dd0dd6027b0e3e9d19b5e790bdbd3ef6a20214804254f534c5cfcb39fd3a4",
+        "server": "748dd0dd6027b0e3e9d19b5e790bdbd3ef6a20214804254f534c5cfcb39fd3a4",
+        "match": true
+      },
+      {
+        "file": "src/components/Modal.tsx",
+        "local": "c165850922cef9dc7de5f64b7a98d0b72102e5722fdb2cdace3282491cf3a6ce",
+        "server": "c165850922cef9dc7de5f64b7a98d0b72102e5722fdb2cdace3282491cf3a6ce",
+        "match": true
+      },
+      {
+        "file": "src/components/ReportLibrary.tsx",
+        "local": "844de1a548cea18e29d9edac71e0253634705573e9aa0f33ee1eb90ec6a51621",
+        "server": "844de1a548cea18e29d9edac71e0253634705573e9aa0f33ee1eb90ec6a51621",
+        "match": true
+      },
+      {
+        "file": "src/hooks/useServiceHealth.ts",
+        "local": "3fbf3ee25ffa45cdf41c2f7765622946f1284509249a6468159ebd378e1e6749",
+        "server": "3fbf3ee25ffa45cdf41c2f7765622946f1284509249a6468159ebd378e1e6749",
+        "match": true
+      },
+      {
+        "file": "src/hooks/useContentTransition.ts",
+        "local": "5f24165179e4b489fd77a49f9d22f3ac9b6b29e8909225e6f5156e503256285c",
+        "server": "5f24165179e4b489fd77a49f9d22f3ac9b6b29e8909225e6f5156e503256285c",
+        "match": true
+      },
+      {
+        "file": "src/hooks/useReviews.ts",
+        "local": "4c28133e6b1aa072ee36e9104a337599af439c39ad6abdf84d9bf4f424143c79",
+        "server": "4c28133e6b1aa072ee36e9104a337599af439c39ad6abdf84d9bf4f424143c79",
+        "match": true
+      },
+      {
+        "file": "src/hooks/useRoute.ts",
+        "local": "25fa673d683a08e034a17bcacf784acd9560378e1b02b39324a1aebc6b8f0236",
+        "server": "25fa673d683a08e034a17bcacf784acd9560378e1b02b39324a1aebc6b8f0236",
+        "match": true
+      },
+      {
+        "file": "src/api/types.ts",
+        "local": "dafdeb57d5c0b92d7e052bcddf52f00ca94dfb8d5bd888bbbf8fcff215f762e2",
+        "server": "dafdeb57d5c0b92d7e052bcddf52f00ca94dfb8d5bd888bbbf8fcff215f762e2",
+        "match": true
+      },
+      {
+        "file": "src/api/client.ts",
+        "local": "34e006c18d8613898025209e4eb812509ce8802b5ecb68733e90ba29a4fcd2dc",
+        "server": "34e006c18d8613898025209e4eb812509ce8802b5ecb68733e90ba29a4fcd2dc",
+        "match": true
+      },
+      {
+        "file": "src/assets/forte-logo.svg",
+        "local": "c481b7fe9ee167048d27ea911d0e196cad93fe24b0828e17fb770b259000fee7",
+        "server": "c481b7fe9ee167048d27ea911d0e196cad93fe24b0828e17fb770b259000fee7",
+        "match": true
+      },
+      {
+        "file": "dist/fonts/OFL-Manrope.txt",
+        "local": "d6a309fcfb963d329a93baf9df66fa5f3c23a4be2b5f67edf24d6cafecde12ac",
+        "server": "d6a309fcfb963d329a93baf9df66fa5f3c23a4be2b5f67edf24d6cafecde12ac",
+        "match": true
+      },
+      {
+        "file": "dist/fonts/manrope-latin.woff2",
+        "local": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972",
+        "server": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972",
+        "match": true
+      },
+      {
+        "file": "dist/fonts/manrope-cyrillic.woff2",
+        "local": "c268b459a9329e59fecf39a17618efd44c71735532048d60b12aab76a8c14914",
+        "server": "c268b459a9329e59fecf39a17618efd44c71735532048d60b12aab76a8c14914",
+        "match": true
+      },
+      {
+        "file": "dist/fonts/manrope-cyrillic-ext.woff2",
+        "local": "de37de877dc17e4577341fa68bb5cb526b53d54cb29721e674208546a3c7849d",
+        "server": "de37de877dc17e4577341fa68bb5cb526b53d54cb29721e674208546a3c7849d",
+        "match": true
+      },
+      {
+        "file": "dist/assets/index-BJBGaYD9.js",
+        "local": "5d195fb8af96ae1a9eb253a369c2e69222a1f21d0bf029aa82a507ddb794d242",
+        "server": "5d195fb8af96ae1a9eb253a369c2e69222a1f21d0bf029aa82a507ddb794d242",
+        "match": true
+      },
+      {
+        "file": "dist/assets/golos-text-latin-wght-normal-BS5oQT7X.woff2",
+        "local": "9a69d0aa4734c4022224c002a3d944a702e0204972a49d892789f5668b922c2a",
+        "server": "9a69d0aa4734c4022224c002a3d944a702e0204972a49d892789f5668b922c2a",
+        "match": true
+      },
+      {
+        "file": "dist/assets/three.module-BdMZo7zQ.js",
+        "local": "ebbbbb1131c57964d2309068e4bdbdaad800b55766c601baf2d52b0ca894dfff",
+        "server": "ebbbbb1131c57964d2309068e4bdbdaad800b55766c601baf2d52b0ca894dfff",
+        "match": true
+      },
+      {
+        "file": "dist/assets/golos-text-cyrillic-wght-normal-mKek_fSS.woff2",
+        "local": "17d048ca05cb1218af3c0d6dcdf882989e6d1cc5dcb598ea50eaf54850ff7229",
+        "server": "17d048ca05cb1218af3c0d6dcdf882989e6d1cc5dcb598ea50eaf54850ff7229",
+        "match": true
+      },
+      {
+        "file": "dist/assets/golos-text-cyrillic-ext-wght-normal-hICkpzq7.woff2",
+        "local": "70cf502d77aa23c8a573db8853f20a8db705d18414d170f257a9e939113aad47",
+        "server": "70cf502d77aa23c8a573db8853f20a8db705d18414d170f257a9e939113aad47",
+        "match": true
+      },
+      {
+        "file": "dist/assets/SVGLoader-DDW7hO49.js",
+        "local": "44e142d188d6317a6820105dbd3a824374dec3064691c87ab7c6585ca329f5ca",
+        "server": "44e142d188d6317a6820105dbd3a824374dec3064691c87ab7c6585ca329f5ca",
+        "match": true
+      },
+      {
+        "file": "dist/assets/golos-text-latin-ext-wght-normal-B-I5lbAQ.woff2",
+        "local": "05befabe4813f41238ce6ea4f5ecd6b758591e9ef2f303a9932bff68ba66dc66",
+        "server": "05befabe4813f41238ce6ea4f5ecd6b758591e9ef2f303a9932bff68ba66dc66",
+        "match": true
+      },
+      {
+        "file": "dist/assets/RoomEnvironment-BnzqdB9-.js",
+        "local": "2cf110fe2c21a7c1ff2d4b74e9d8d495f2c85bacc9b12db489c6f8e493e6f3ed",
+        "server": "2cf110fe2c21a7c1ff2d4b74e9d8d495f2c85bacc9b12db489c6f8e493e6f3ed",
+        "match": true
+      },
+      {
+        "file": "dist/assets/index-0NEj9s83.css",
+        "local": "8846a3cf11fa0d05cc0193793e210c3098a71caaaa7d9a11f25ef922e88d77db",
+        "server": "8846a3cf11fa0d05cc0193793e210c3098a71caaaa7d9a11f25ef922e88d77db",
+        "match": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,539 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ForteBank KZ cash normative ruleset 1.0.0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ruleset_id",
+    "jurisdiction",
+    "language",
+    "checked_at",
+    "purpose",
+    "integration_status",
+    "runtime_network_required",
+    "no_face_identification",
+    "no_audio",
+    "authoritative_legal_conclusion_allowed",
+    "status_semantics",
+    "condition_logic",
+    "documents",
+    "rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "ruleset_id": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "const": "KZ"
+    },
+    "language": {
+      "const": "ru"
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "integration_status": {
+      "const": "PROPOSED_AWAITING_DEVELOPER_MAPPING"
+    },
+    "runtime_network_required": {
+      "const": false
+    },
+    "no_face_identification": {
+      "const": true
+    },
+    "no_audio": {
+      "const": true
+    },
+    "authoritative_legal_conclusion_allowed": {
+      "const": false
+    },
+    "status_semantics": {
+      "type": "object"
+    },
+    "condition_logic": {
+      "type": "object"
+    },
+    "documents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "document_id",
+          "title",
+          "number",
+          "adoption_date",
+          "issuing_authority",
+          "status_as_of_check",
+          "revision_date",
+          "url",
+          "source_version_id"
+        ],
+        "properties": {
+          "document_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "adoption_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "revision_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "status_as_of_check": {
+            "enum": [
+              "IN_FORCE",
+              "UNVERIFIED",
+              "REPEALED"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "source_version_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "condition": {
+      "type": "object",
+      "required": [
+        "condition_id",
+        "description",
+        "value_if_unknown"
+      ],
+      "properties": {
+        "condition_id": {
+          "type": "string",
+          "pattern": "^CASH_[0-9]{3}_[CA][0-9]{2}$"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value_if_unknown": {
+          "const": "UNKNOWN"
+        }
+      },
+      "additionalProperties": false
+    },
+    "legal": {
+      "type": "object",
+      "required": [
+        "document_id",
+        "title",
+        "number",
+        "adoption_date",
+        "issuing_authority",
+        "revision_date",
+        "url",
+        "source_version_id",
+        "clause",
+        "clause_refs",
+        "status_as_of_check",
+        "revision_note"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "number": {
+          "type": "string"
+        },
+        "adoption_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "revision_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://adilet\\.zan\\.kz/rus/docs/"
+        },
+        "source_version_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "clause": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clause_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "clause",
+              "anchor",
+              "url",
+              "verified_paragraph_excerpt"
+            ],
+            "properties": {
+              "clause": {
+                "type": "string"
+              },
+              "anchor": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^z[0-9]+$"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "verified_paragraph_excerpt": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "status_as_of_check": {
+          "enum": [
+            "IN_FORCE",
+            "UNVERIFIED",
+            "REPEALED"
+          ]
+        },
+        "issuing_authority": {
+          "type": "string"
+        },
+        "revision_note": {
+          "type": "string"
+        },
+        "specific_subclause_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "parent_clause",
+              "subclause",
+              "anchor",
+              "official_text",
+              "url"
+            ],
+            "properties": {
+              "parent_clause": {
+                "type": "string"
+              },
+              "subclause": {
+                "type": "string"
+              },
+              "anchor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "official_text": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "required": [
+        "rule_id",
+        "event_type",
+        "event_name_ru",
+        "observable_indicators",
+        "required_conditions",
+        "legal_document",
+        "additional_legal_refs",
+        "legal_status",
+        "checked_at",
+        "norm_summary",
+        "video_assessment_mode",
+        "enabled_for_candidate_assessment",
+        "human_review_required",
+        "legal_determination",
+        "unknown_facts",
+        "limitations",
+        "abstain_when",
+        "negative_controls",
+        "observation_template",
+        "description_template",
+        "risk_rationale",
+        "deduplication_group",
+        "evidence_policy",
+        "integration_status",
+        "valid_until_exclusive",
+        "valid_from",
+        "valid_from_note",
+        "abstention_conditions"
+      ],
+      "properties": {
+        "rule_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^CASH_[0-9]{3}$"
+        },
+        "event_type": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9_]+$"
+        },
+        "event_name_ru": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observable_indicators": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/condition"
+          }
+        },
+        "legal_document": {
+          "$ref": "#/$defs/legal"
+        },
+        "additional_legal_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "document_id",
+              "clause",
+              "url"
+            ],
+            "properties": {
+              "document_id": {
+                "type": "string"
+              },
+              "clause": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "legal_status": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED"
+          ]
+        },
+        "checked_at": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date"
+        },
+        "norm_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "video_assessment_mode": {
+          "enum": [
+            "CONDITIONAL_VIDEO",
+            "MANUAL_REVIEW_ONLY"
+          ]
+        },
+        "enabled_for_candidate_assessment": {
+          "type": "boolean"
+        },
+        "human_review_required": {
+          "const": true
+        },
+        "legal_determination": {
+          "const": "POTENTIAL_ONLY"
+        },
+        "unknown_facts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "abstain_when": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "negative_controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "observation_template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description_template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "deduplication_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_policy": {
+          "type": "object",
+          "required": [
+            "frames_min",
+            "frames_max",
+            "timecode_policy",
+            "continuity_required_for_omission",
+            "minimum_duration_seconds",
+            "minimum_duration_note"
+          ],
+          "properties": {
+            "frames_min": {
+              "const": 1
+            },
+            "frames_max": {
+              "const": 3
+            },
+            "timecode_policy": {
+              "type": "string"
+            },
+            "continuity_required_for_omission": {
+              "const": true
+            },
+            "minimum_duration_seconds": {
+              "type": "null"
+            },
+            "minimum_duration_note": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "integration_status": {
+          "const": "PROPOSED_AWAITING_DEVELOPER_MAPPING"
+        },
+        "valid_until_exclusive": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_from": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date"
+        },
+        "valid_from_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "abstention_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/condition"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "legal_status": {
+                "const": "UNVERIFIED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "enabled_for_candidate_assessment": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "video_assessment_mode": {
+                "const": "MANUAL_REVIEW_ONLY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "enabled_for_candidate_assessment": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

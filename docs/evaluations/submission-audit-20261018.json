@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "/": 200,
+    "/health": 200,
+    "/docs": 200,
+    "/openapi.json": 200,
+    "auth_missing": 401,
+    "auth_wrong": 401,
+    "empty_mov": 400,
+    "wrong_format": 400,
+    "legacy_ui": 404
+  },
+  "videos": [
+    {
+      "video": "Х-25.mov",
+      "seconds": 7.01,
+      "status": "done",
+      "verdict": "no_violation",
+      "events": 0,
+      "jpeg_counts": [],
+      "sources": [],
+      "states": [
+        "done",
+        "processing"
+      ]
+    },
+    {
+      "video": "Х-46.mov",
+      "seconds": 4.69,
+      "status": "done",
+      "verdict": "violation",
+      "events": 1,
+      "jpeg_counts": [
+        3
+      ],
+      "sources": [
+        "https://adilet.zan.kz/rus/docs/V1900019680#z81"
+      ],
+      "states": [
+        "done",
+        "processing"
+      ]
+    },
+    {
+      "video": "Х-14.mov",
+      "seconds": 25.19,
+      "status": "done",
+      "verdict": "no_violation",
+      "events": 0,
+      "jpeg_counts": [],
+      "sources": [],
+      "states": [
+        "done",
+        "processing"
+      ]
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "worker": "ready",
+    "device": "cuda",
+    "queue": 0,
+    "busy": false
+  }
+}
