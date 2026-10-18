@@ -42,10 +42,12 @@ class RegulatoryTest(unittest.TestCase):
         r=reference_for('L_workstation_unlocked')
         self.assertIn('30 минут',r['reason'])
         self.assertEqual(r['assessment'],'NEEDS_REVIEW')
-        self.assertTrue(r['sources'])
-        self.assertTrue(all(s['url'].startswith('https://adilet.zan.kz/') for s in r['sources']))
+        self.assertEqual(r['sources'],[])
+        self.assertIsNone(r['url'])
+        self.assertEqual(r['relation'],'NO_DIRECT_BASIS')
     def test_mapped_sources_have_explicit_provenance(self):
         for code in MAPPING:
             r=reference_for(code)
-            self.assertEqual(r['source_verification'],'PACKAGE_REFERENCE_NOT_REVERIFIED')
+            self.assertEqual(r['source_verification'],'OFFICIAL_TEXT_VERIFIED')
+            self.assertTrue(all(s.get('quote') for s in r['sources']))
             self.assertTrue(all(s['section'] and s['url'] for s in r['sources']))

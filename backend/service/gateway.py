@@ -8,6 +8,8 @@ from pathlib import Path
 
 import httpx
 from fastapi import FastAPI, Request
+from fastapi.openapi.docs import get_swagger_ui_html
+from .api_docs import TITLE, DESCRIPTION, present_schema
 from fastapi.responses import FileResponse, JSONResponse, Response
 from starlette.staticfiles import StaticFiles
 
@@ -28,16 +30,37 @@ async def lifespan(app):
         yield
 
 
-app = FastAPI(title="Video analysis web gateway", docs_url=None,
+app = FastAPI(title=TITLE, docs_url=None,
               redoc_url=None, openapi_url=None, lifespan=lifespan)
+
+
+@app.get("/docs", include_in_schema=False)
+async def swagger_docs():
+    page = get_swagger_ui_html(openapi_url="/openapi.json", title=TITLE + " — документация",
+        swagger_js_url="/docs-assets/swagger-ui-bundle.js",
+        swagger_css_url="/docs-assets/swagger-ui.css",
+        swagger_favicon_url="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238e174b'/%3E%3Ctext x='10' y='25' font-family='Arial' font-size='27' fill='white'%3Ef%3C/text%3E%3C/svg%3E",
+        swagger_ui_parameters={"persistAuthorization": False, "defaultModelsExpandDepth": -1,
+                               "displayRequestDuration": True, "docExpansion": "list"})
+    static = Path(__file__).parent / "static"
+    body = page.body.decode().replace('<html>', '<html lang="ru">')
+    body = body.replace('</head>', '<style>' + (static / 'forte_docs.css').read_text() + '</style></head>')
+    body = body.replace('<body>', '<body>' + (static / 'forte_docs_shell.html').read_text())
+    body = body.replace('</body>', '<footer class="docs-footer">Forte · OpenAPI / Swagger UI</footer></main></div><script>' +
+                        (static / 'forte_docs_auth.js').read_text() + '</script></body>')
+    # Expose only the already-created UI instance to our key form.
+    body = body.replace('const ui = SwaggerUIBundle(', 'const ui = window.ui = SwaggerUIBundle(')
+    return Response(body, media_type="text/html", headers={"Cache-Control": "no-store"})
+
 
 
 @app.api_route("/api/{path:path}", methods=["GET", "POST"])
 @app.get("/health")
-@app.get("/docs")
 @app.get("/openapi.json")
 async def proxy(request: Request, path: str = ""):
     target = "/api/v1/health" if request.url.path == "/health" else request.url.path
+    if target.startswith("/api/v1/jobs/") and target.endswith("/review"):
+        return JSONResponse({"detail": "Not found"}, status_code=404)
     # Deliberate allowlist: do not expose the old unauthenticated /ui routes.
     headers = {k: v for k, v in request.headers.items()
                if k.lower() in {"x-api-key", "content-type", "accept"}}
@@ -51,6 +74,10 @@ async def proxy(request: Request, path: str = ""):
             content=request.stream() if request.method == "POST" else None)
     except httpx.RequestError:
         return JSONResponse({"detail": "Analysis service unavailable"}, status_code=503)
+    if response.status_code == 200 and target == "/openapi.json":
+        schema = response.json()
+        schema = present_schema(schema)
+        return JSONResponse(schema, headers={"Cache-Control": "no-store"})
     if response.status_code == 200 and target.startswith("/api/v1/jobs/"):
         return JSONResponse(with_rule_sources(response.json()), headers={"Cache-Control": "no-store"})
     return Response(response.content, status_code=response.status_code,
@@ -59,6 +86,7 @@ async def proxy(request: Request, path: str = ""):
 
 
 # check_dir=False permits backend-only test/installation before npm build.
+app.mount("/docs-assets", StaticFiles(directory=Path(__file__).parent / "static" / "swagger"), name="docs-assets")
 app.mount("/assets", StaticFiles(directory=DIST / "assets", check_dir=False), name="assets")
 
 

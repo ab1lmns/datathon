@@ -2,9 +2,13 @@
 import json
 from pathlib import Path
 from forte.registry import REGISTRY, refs
+from .event_wording import qualify_known_description
 
 DATA = json.loads((Path(__file__).resolve().parents[1] / 'regulatory/regulatory_rules.json').read_text())
 RULES = {r['rule_id']: r for r in DATA['rules']}
+SOURCE_AUDIT_PATH = Path(__file__).resolve().parents[1] / 'regulatory/source_audit.json'
+SOURCE_AUDIT = json.loads(SOURCE_AUDIT_PATH.read_text()) if SOURCE_AUDIT_PATH.exists() else {}
+APPLICABILITY_SOURCES = json.loads((Path(__file__).resolve().parents[1] / 'regulatory/applicability_sources.json').read_text())
 # References for review, NOT automatic equivalence or confirmed legal findings.
 MAPPING = {
     'A_unattended_valuables': (['CASH_006','CASH_008'], 'Проверить, что это ранее принятые банкноты или незавершённый приём. Сумка или папка сами по себе этих условий не подтверждают.'),
@@ -22,21 +26,20 @@ MAPPING = {
 
 def reference_for(code):
     if code == 'L_workstation_unlocked':
-        legacy = refs(code)
-        sources = [{'document':r['doc'], 'section':r['label'], 'url':r['url']} for r in legacy]
-        first = sources[0] if sources else {'document':'Нормативное соответствие не установлено'}
-        return {**first, 'assessment':'NEEDS_REVIEW', 'rule_ids':[], 'sources':sources,
-                'reason':'Связанная справочная норма, не доказательство нарушения работником. Требование автоматической блокировки после 30 минут относится к системе; короткий ролик не подтверждает его нарушение. Обязанности конкретного работника нужно проверить по внутренним правилам банка. Клиентский документ об онлайн-банкинге не применяется как обязанность кассира.',
+        return {'document':'Прямое нормативное основание не установлено',
+                'section':None, 'url':None, 'assessment':'NEEDS_REVIEW', 'rule_ids':[], 'sources':[],
+                'relation':'NO_DIRECT_BASIS',
+                'reason':'Норма об автоматической блокировке после 30 минут не устанавливает нарушение при кратком уходе работника. Клиентский документ онлайн-банкинга не определяет обязанности кассира. Для вывода о нарушении необходимы применимые внутренние требования банка и подтверждение состояния сессии.',
                 'unknown_conditions':[{'id':'workstation_policy','text':'Внутренние требования банка, длительность бездействия и состояние сессии','value':'UNKNOWN'}],
-                'checked_at':None, 'source_verification':'LEGACY_REFERENCE_NOT_REVERIFIED'}
+                'checked_at':None, 'source_verification':'NOT_APPLICABLE'}
     if code not in MAPPING:
-        sources = refs(code) if code else []
+        sources = []
         return {
             'document': sources[0]['doc'] if sources else 'Нормативное соответствие не установлено',
             'section': sources[0]['label'] if sources else None,
             'url': sources[0]['url'] if sources else None,
             'assessment': 'NEEDS_REVIEW', 'rule_ids': [], 'sources': [],
-            'reason': 'Соответствующего правила в присланном модуле нет. Прежняя ссылка приведена только для ручной проверки; её применимость не подтверждена.',
+            'reason': 'Соответствующего правила в присланном модуле нет. Неподходящая ссылка не назначается.',
             'unknown_conditions': [], 'checked_at': None,
         }
     ids, reason = MAPPING[code]
@@ -44,16 +47,26 @@ def reference_for(code):
     sources, unknown = [], []
     for rule in rules:
         doc = rule['legal_document']
-        for clause in doc.get('clause_refs', []):
-            source = {'document':doc['title'], 'section':clause['clause'], 'url':clause['url']}
+        audit = SOURCE_AUDIT.get('rules', {}).get(rule['rule_id'], {})
+        for index, clause in enumerate(doc.get('clause_refs', [])):
+            verified = audit.get('clauses', [])[index] if audit.get('text_verified') else {}
+            source = {'document':doc['title'], 'section':clause['clause'],
+                      'url':verified.get('url', clause['url'])}
+            if verified:
+                source['quote'] = verified['quote']
+            if rule['rule_id'] not in APPLICABILITY_SOURCES and source not in sources: sources.append(source)
+        for source in APPLICABILITY_SOURCES.get(rule['rule_id'], []):
             if source not in sources: sources.append(source)
         unknown.extend({'id':c['condition_id'], 'text':c['description'], 'value':'UNKNOWN'} for c in rule['required_conditions'])
     first = sources[0] if sources else {'document':'Нормативное соответствие не установлено'}
     return {**first, 'assessment':'NEEDS_REVIEW', 'rule_ids':[r['rule_id'] for r in rules],
+            'relation':'RELATED_ONLY' if code in ('B_safe_open','E_unauthorized_person','H_door_open') else 'CONDITIONAL_BASIS',
             'reason':reason, 'sources':sources, 'unknown_conditions':unknown,
-            'checked_at':DATA['checked_at'],
-            'source_verification':'PACKAGE_REFERENCE_NOT_REVERIFIED',
-            'verification_note':'Дата и VERIFIED — сведения поставленного нормативного пакета. Условия события моделью не подтверждены.'}
+            'checked_at':SOURCE_AUDIT.get('fetched_at', DATA['checked_at']),
+            'source_verification':('OFFICIAL_TEXT_VERIFIED' if rules and all(
+                SOURCE_AUDIT.get('rules', {}).get(r['rule_id'], {}).get('text_verified') for r in rules)
+                else 'PACKAGE_REFERENCE_NOT_REVERIFIED'),
+            'verification_note':'Цитаты сверены с текстом официального источника. Применимость к конкретному событию оценивается отдельно.' if SOURCE_AUDIT else 'Сверка официального текста не выполнена.'}
 
 
 def enrich(payload):
@@ -63,7 +76,8 @@ def enrich(payload):
         code=lookup.get(event.get('type'))
         event['rule']=reference_for(code)
         # Replace only the exact legacy normative suffix; never edit visual evidence or unknown text.
-        description=event.get('description')
+        description=qualify_known_description(code,event.get('description'))
+        if isinstance(description,str): event['description']=description
         if code and isinstance(description,str):
             for lead in ('Возможное нарушение требования', 'Может не соответствовать требованию'):
                 suffix=f"{lead}: {REGISTRY[code]['norm']}."

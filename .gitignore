@@ -21,3 +21,30 @@ backend/.venv/
 *.pt
 *.pth
 ._*
+
+# Local datasets and original task materials, never part of the release.
+/open/
+/data/
+/*.docx
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Credentials, local environments and runtime state.
+.env.*
+!.env.example
+.venv-*/
+venv/
+ACCESS_PRIVATE*.txt
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.log.*
+*.pyc
+.cache/
+.hf_home/

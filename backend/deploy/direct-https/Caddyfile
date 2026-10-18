@@ -1,0 +1,8 @@
+{
+ admin off
+ auto_https off
+}
+https://forte.makquiz.site:10100 {
+ tls /workspace/forte-tls/config/live/forte.makquiz.site/fullchain.pem /workspace/forte-tls/config/live/forte.makquiz.site/privkey.pem
+ reverse_proxy 127.0.0.1:7860
+}

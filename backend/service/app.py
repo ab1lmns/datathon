@@ -20,7 +20,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.security import APIKeyHeader
 from fastapi.staticfiles import StaticFiles
 
-from .jobs import Dispatcher, JobStore
+from .jobs import Dispatcher, JobStore, QueueFull
 from .logs import setup_logging
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -29,6 +29,7 @@ DATA = Path(os.environ.get("FORTE_DATA_DIR", ROOT / "data" / "service"))
 API_KEY = os.environ.get("FORTE_API_KEY", "")
 TIMEOUT_SEC = float(os.environ.get("FORTE_JOB_TIMEOUT", "300"))
 MAX_UPLOAD = int(float(os.environ.get("FORTE_MAX_UPLOAD_MB", "200")) * 1024 * 1024)
+MAX_ACTIVE = max(1, int(os.environ.get("FORTE_MAX_ACTIVE_JOBS", "2")))
 KEEP_API_VIDEOS = os.environ.get("FORTE_KEEP_API_VIDEOS", "0") == "1"
 LEGACY_DB = os.environ.get("FORTE_LEGACY_DB", "")
 
@@ -50,8 +51,10 @@ async def lifespan(app: FastAPI):
     disp.stop()
 
 
-app = FastAPI(title="Анализ кассовых видео API", version="1.0",
-              description="Поиск признаков нарушений кассовой дисциплины на видео. Все модели локальные.",
+from .api_docs import TITLE, DESCRIPTION
+
+app = FastAPI(title=TITLE, version="1.0",
+              description=DESCRIPTION,
               lifespan=lifespan)
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False,
                               description="Ключ доступа к API (выдаётся жюри)")
@@ -64,6 +67,7 @@ def key_ok(key: str | None) -> bool:
 @app.middleware("http")
 async def check_api_key(request: Request, call_next):
     """Ключ проверяется до чтения тела запроса: без ключа видео даже не загружается."""
+    request.state.received_at = time.time()
     path = request.url.path
     if path.startswith("/api/") and path != "/api/v1/health" and not key_ok(request.headers.get("X-API-Key")):
         return JSONResponse({"detail": "Invalid or missing API key"}, status_code=401,
@@ -96,7 +100,16 @@ def save_upload(request: Request, file: UploadFile, source: str) -> str:
     if size == 0:
         dst.unlink(missing_ok=True)
         raise HTTPException(400, "Пустой файл: передайте видео в поле file")
-    request.app.state.store.add(job_id, source, name, dst, size)
+    received = getattr(request.state, 'received_at', time.time())
+    if time.time() - received >= min(TIMEOUT_SEC, 300):
+        dst.unlink(missing_ok=True)
+        raise HTTPException(408, "Истёк срок передачи видео")
+    try:
+        request.app.state.store.add(job_id, source, name, dst, size,
+                                    created_at=received, max_active=MAX_ACTIVE)
+    except QueueFull:
+        dst.unlink(missing_ok=True)
+        raise HTTPException(429, "Очередь заполнена; повторите загрузку позже", headers={"Retry-After": "30"})
     request.app.state.disp.submit(job_id)
     return job_id
 

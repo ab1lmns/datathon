@@ -2,11 +2,14 @@
 import hashlib, json
 from pathlib import Path
 root = Path(__file__).resolve().parents[1]
-manifest = json.loads((root/'deploy/server-source-sha256.json').read_text())
-# Explicit release overrides; earlier snapshots remain in Git history.
-overrides = root/'deploy/presentation-sha256.json'
-if overrides.exists():
-    manifest.update(json.loads(overrides.read_text()))
+current = root/'deploy/current-release-sha256.json'
+if current.exists():
+    manifest = json.loads(current.read_text())
+else:
+    manifest = json.loads((root/'deploy/server-source-sha256.json').read_text())
+    overrides = root/'deploy/presentation-sha256.json'
+    if overrides.exists():
+        manifest.update(json.loads(overrides.read_text()))
 checked = []
 for name, expected in manifest.items():
     if name.startswith(('forte/', 'service/', 'assets/fonts/', 'regulatory/')) or name in {'models/safe_clf.joblib', 'models/money_clf.joblib', 'scripts/extract_features.py'}:

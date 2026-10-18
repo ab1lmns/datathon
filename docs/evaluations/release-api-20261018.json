@@ -1,0 +1,60 @@
+{
+  "health": 200,
+  "missing_key": 401,
+  "wrong_key": 401,
+  "review_removed": 404,
+  "empty": 400,
+  "wrong_format": 400,
+  "Х-25.mov": {
+    "job_id": "9c63ee32f4f1",
+    "status": "done",
+    "verdict": "no_violation",
+    "elapsed_sec": 43.96,
+    "states": [
+      "done",
+      "processing"
+    ],
+    "events": []
+  },
+  "Х-46.mov": {
+    "job_id": "01792bcbfffa",
+    "status": "done",
+    "verdict": "violation",
+    "elapsed_sec": 33.99,
+    "states": [
+      "done",
+      "processing"
+    ],
+    "events": [
+      {
+        "type": "Личные вещи на рабочем месте кассира",
+        "timecode_sec": 11.2,
+        "frames": [
+          10.2,
+          11.2,
+          11.7
+        ],
+        "rule_relation": "CONDITIONAL_BASIS"
+      }
+    ]
+  },
+  "corrupt": {
+    "job_id": "47836e5b3c0b",
+    "status": "failed",
+    "verdict": null,
+    "elapsed_sec": 1.54,
+    "states": [
+      "failed",
+      "processing"
+    ],
+    "events": []
+  },
+  "final_health": {
+    "status": "ok",
+    "worker": "ready",
+    "device": "cuda",
+    "queue": 0,
+    "busy": false
+  },
+  "transport": "Cloudflare public HTTPS, client on Mac"
+}

@@ -56,7 +56,7 @@ FORTE_API_UPSTREAM=http://127.0.0.1:8000 \
 
 ## Действующий сервер
 
-- GPU API: `forte_api`, localhost:17070, исходники `/workspace/forte_live_20261017`.
+- GPU API: `forte_api`, localhost:17070, исходники `/workspace/forte_live_20261018`.
 - Новый UI/gateway: `forte_ui`, localhost:7860, `/workspace/forte_web_release_20261018`.
 - GPU API, checkpoint, SQLite и настройки распознавания при интеграции не изменены.
 - Откат UI: вернуть `/workspace/forte_web_release_20261018/forte-ui.before.sh` в `/opt/supervisor-scripts/forte-ui.sh`, затем `supervisorctl restart forte_ui`.
@@ -65,3 +65,27 @@ FORTE_API_UPSTREAM=http://127.0.0.1:8000 \
 `requirements-service.txt` содержит версии прямых зависимостей рабочего Linux-окружения; `deploy/environment-freeze.txt` — полный справочный снимок, включая пакеты экспериментов. Устанавливать весь freeze не требуется. Установка на совершенно новой машине отдельно не проверялась.
 
 Выбор JPEG дополнен контекстом: до трёх разных моментов в границах видео, без дублирования. Состав событий и основной таймкод не меняются. План следующего пилота и видеоклипов: `../docs/NEXT_STEPS.md`.
+
+## Состав актуальной развёрнутой версии
+
+GPU API и публичный gateway — разные процессы. Модели, pipeline и классификаторы находятся в `forte_live_20261018`; интерфейс, публичный Swagger и нормативное обогащение — в `forte_web_release_20261018`. Сравнивать файлы следует по роли процесса, а не требовать одинакового содержимого всех серверных папок. Внутренний GPU API сохраняет прежнее название документации; публичный `/docs` показывает Forte.
+
+Tailscale Funnel направляет HTTPS на gateway: https://forte.tail54a46d.ts.net. Сервис supervisor `forte_tailscale`, состояние/сертификаты вне репозитория. Резервный процесс `forte_web_tunnel`. Ключи и state-файлы не копировать в Git. Источники нормативных актов лежат локально; при обработке видео загрузка их из интернета не нужна.
+
+Swagger UI 5.33.3 поставляется локально вместе с лицензией, CDN-запросы не нужны. Полный перенос на новую машину без сети ещё не проверен.
+
+### Подготовка пакетов для установки без сети
+
+На подключённой Linux x86_64 машине с Python 3.12:
+
+```bash
+python -m pip download --only-binary=:all: -r requirements-service.txt -d /path/to/wheels
+```
+
+Перенесите wheelhouse, проект и HF_HOME с четырьмя snapshot на целевую машину. Затем:
+
+```bash
+scripts/install_offline.sh /path/to/wheels /path/to/new-venv
+```
+
+Не используйте эту команду для перезаписи рабочего окружения. `--no-index` запрещает установщику обращаться к индексам; полная изоляция системы требует отдельной сетевой проверки. Статус фактической проверки: `docs/READINESS_FIXES_20261018.md` в корне проекта.

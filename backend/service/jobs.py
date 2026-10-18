@@ -22,6 +22,10 @@ MAX_ATTEMPTS = 2
 LIMIT_SEC = 300  # ТЗ: результат не позже 5 минут после загрузки
 
 
+class QueueFull(Exception):
+    """Admission rejected before a task is accepted."""
+
+
 class JobStore:
     def __init__(self, root: Path):
         self.dir = root / "jobs"
@@ -41,11 +45,13 @@ class JobStore:
         tmp.write_text(json.dumps(j, ensure_ascii=False), encoding="utf-8")
         os.replace(tmp, p)
 
-    def add(self, job_id, source, filename, video, size) -> dict:
+    def add(self, job_id, source, filename, video, size, *, created_at=None, max_active=None) -> dict:
         j = {"job_id": job_id, "source": source, "filename": filename, "video": str(video), "size": size,
-             "status": "queued", "created_at": time.time(), "started_at": None, "finished_at": None,
+             "status": "queued", "created_at": time.time() if created_at is None else created_at, "started_at": None, "finished_at": None,
              "attempts": 0, "result": None, "error": None}
         with self.lock:
+            if max_active is not None and sum(x['status'] in ('queued', 'processing') for x in self.jobs.values()) >= max_active:
+                raise QueueFull('Queue capacity reached')
             self.jobs[job_id] = j
             self._save(j)
         return j
@@ -76,7 +82,7 @@ class Dispatcher:
     def __init__(self, store: JobStore, log_file: str, timeout_sec: float, keep_api_videos: bool):
         self.store = store
         self.log_file = log_file
-        self.timeout = timeout_sec
+        self.timeout = min(float(timeout_sec), LIMIT_SEC)
         self.keep_api_videos = keep_api_videos
         self.ctx = mp.get_context("spawn")
         self.pending: deque[str] = deque()
@@ -152,7 +158,19 @@ class Dispatcher:
                 log.exception("dispatcher error")
                 time.sleep(1)
 
+    def _expire_pending(self):
+        with self.lock:
+            expired = [jid for jid in self.pending if self._expired(jid)]
+            self.pending = deque(jid for jid in self.pending if jid not in expired)
+        for jid in expired:
+            self._fail(jid, "Истёк общий срок обработки, включая очередь")
+
+    def _expired(self, jid):
+        j = self.store.get(jid)
+        return j is not None and time.time() - j['created_at'] >= self.timeout
+
     def _tick(self):
+        self._expire_pending()
         if self.proc is None or not self.proc.is_alive():
             if self.proc is not None:
                 self._on_worker_exit()
@@ -171,19 +189,22 @@ class Dispatcher:
             ev = None
         if ev is not None:
             self._handle(ev)
-        if self.current and time.time() - self.current_started > self.timeout:
+        if self.current and self._expired(self.current):
             jid = self.current
             log.error("job %s exceeded %.0fs, killing worker", jid, self.timeout)
             self.current = None
             self.proc.kill()
             self.proc.join(timeout=5)
-            self._fail(jid, f"превышен лимит обработки {self.timeout:.0f} с")
+            self._fail(jid, f"превышен общий лимит обработки с очередью {self.timeout:.0f} с")
             self.state = "down"
             self.proc = None
 
     def _dispatch(self, jid):
         j = self.store.get(jid)
         if j is None or j["status"] not in ("queued", "processing"):
+            return
+        if self._expired(jid):
+            self._fail(jid, "Истёк общий срок обработки до запуска worker")
             return
         now = time.time()
         self.store.update(jid, status="processing", started_at=now, attempts=j["attempts"] + 1)
@@ -240,7 +261,11 @@ class Dispatcher:
         j = self.store.get(jid)
         if j is None:
             return
+        if j['status'] in ('done', 'failed'):
+            return
         now = time.time()
+        if status == 'done' and now - j['created_at'] >= self.timeout:
+            status, result, error = 'failed', None, 'Результат получен после общего дедлайна'
         self.store.update(jid, status=status, finished_at=now, result=result, error=error)
         total = now - j["created_at"]
         proc = now - j["started_at"] if j["started_at"] else 0.0
