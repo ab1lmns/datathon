@@ -1,3 +1,4 @@
+import { parseObjects } from './evidence.ts';
 import type { JobResponse, Settings, Violation } from './types';
 export const TIMEOUT_MS = 300_000;
 export const POLL_MS = 2_000;
@@ -16,7 +17,7 @@ export function parseJob(value: unknown): JobResponse {
  if(value.status !== 'done' || !['violation','no_violation'].includes(String(value.verdict)) || !Array.isArray(value.violations)) throw new Error('API: неверный формат результата.');
  const violations: Violation[] = value.violations.map(v=>{
   if(!record(v)||typeof v.type!=='string'||!seconds(v.timecode_sec)||typeof v.description!=='string'||!Array.isArray(v.evidence_frames)||v.evidence_frames.length<1||v.evidence_frames.length>3) throw new Error('API: событие должно содержать тип, таймкод, описание и 1–3 кадра.');
-  const frames=v.evidence_frames.map(f=>{if(!record(f)||!seconds(f.timestamp_sec)||typeof f.image_base64!=='string'||!f.image_base64)throw new Error('API: неверный кадр-доказательство.');return {timestamp_sec:f.timestamp_sec,image_base64:f.image_base64}});
+  const frames=v.evidence_frames.map(f=>{if(!record(f)||!seconds(f.timestamp_sec)||typeof f.image_base64!=='string'||!f.image_base64)throw new Error('API: неверный кадр-доказательство.');return {timestamp_sec:f.timestamp_sec,image_base64:f.image_base64,...(Array.isArray(f.objects)?{objects:parseObjects(f.objects)}:{})}});
   const rule=record(v.rule)&&typeof v.rule.document==='string'?{document:v.rule.document,section:typeof v.rule.section==='string'?v.rule.section:undefined,url:typeof v.rule.url==='string'?safeSourceUrl(v.rule.url):undefined,assessment:typeof v.rule.assessment==='string'?v.rule.assessment:undefined,reason:typeof v.rule.reason==='string'?v.rule.reason:undefined,relation:typeof v.rule.relation==='string'?v.rule.relation:undefined,source_verification:typeof v.rule.source_verification==='string'?v.rule.source_verification:undefined,checked_at:typeof v.rule.checked_at==='string'?v.rule.checked_at:undefined,sources:Array.isArray(v.rule.sources)?v.rule.sources.filter(record).filter(s=>typeof s.document==='string'&&typeof s.section==='string').map(s=>({document:String(s.document),section:String(s.section),url:typeof s.url==='string'?safeSourceUrl(s.url):undefined,quote:typeof s.quote==='string'?s.quote:undefined})):[],unknown_conditions:Array.isArray(v.rule.unknown_conditions)?v.rule.unknown_conditions.filter(record).filter(c=>typeof c.id==='string'&&typeof c.text==='string').map(c=>({id:String(c.id),text:String(c.text),value:'UNKNOWN'})):[]}:undefined;
   return {type:v.type,timecode_sec:v.timecode_sec,description:v.description,evidence_frames:frames,rule};
  });

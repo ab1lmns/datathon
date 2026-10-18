@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AlertCircle, ArrowDownToLine, ArrowLeft, Check, FileText, Info, LoaderCircle, Play, RotateCcw, Video } from './Icons';
 import { ReviewVideo } from './ReviewVideo';
 import { frameUrl } from '../api/client';
-import type { ReviewEvent, ReviewJob } from '../api/types';
+import type { EvidenceFrame, ReviewEvent, ReviewJob } from '../api/types';
 
 export const clock = (sec: number) => `${Math.floor(sec / 60).toString().padStart(2,'0')}:${Math.floor(sec % 60).toString().padStart(2,'0')}`;
 
@@ -30,7 +30,7 @@ export function VideoPreview({ url, time, onPlay }: { url: string; time: number;
 type DetailProps = {
   job?: ReviewJob;
   onCancel: (id: string) => void; onRetry: (job: ReviewJob) => void; onSettings: () => void;
-  onBack: () => void; onEvidence: (image: string, time: number) => void;
+  onBack: () => void; onEvidence: (frame: EvidenceFrame) => void;
 };
 
 export function ReviewDetail({ job, onCancel, onRetry, onSettings, onBack, onEvidence }: DetailProps) {
@@ -53,7 +53,7 @@ export function ReviewDetail({ job, onCancel, onRetry, onSettings, onBack, onEvi
         <h3 className="event-title">{event?.title || 'Всё спокойно'}</h3>
         <p className="description">{event?.description || (job.demo ? 'В исходной разметке эта запись отмечена «без нарушения».' : 'По результатам анализа событий, требующих внимания, не обнаружено.')}</p>
       </div>
-      {!!event?.frames.length && <div className="evidence-section"><span className="overline">КАДРЫ-ДОКАЗАТЕЛЬСТВА</span><div className="evidence-strip">{event.frames.map((frame, i) => <button key={i} onClick={() => onEvidence(frameUrl(frame.image_base64), frame.timestamp_sec)}><img src={frameUrl(frame.image_base64)} alt={`Кадр ${i + 1} на ${clock(frame.timestamp_sec)}`}/><span>{clock(frame.timestamp_sec)}<ArrowDownToLine size={12}/></span></button>)}</div></div>}
+      {!!event?.frames.length && <div className="evidence-section"><span className="overline">КАДРЫ-ДОКАЗАТЕЛЬСТВА</span><div className="evidence-strip">{event.frames.map((frame, i) => <button key={i} onClick={() => onEvidence(frame)}><img src={frameUrl(frame.image_base64)} alt={`Кадр ${i + 1} на ${clock(frame.timestamp_sec)}`}/><span>{clock(frame.timestamp_sec)}<ArrowDownToLine size={12}/></span></button>)}</div></div>}
       {event && <section className="report-rule" aria-label="Правило проверки">
         <h3><FileText size={17}/>Правило проверки</h3>
         {event.rule ? <>

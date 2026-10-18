@@ -29,6 +29,7 @@ from .scene import BAG_Q, CACHE, CUP_Q, MONEY_Q, PERSONAL_Q, build_scene, center
 from .video import read_frame
 from .evidence_labels import render_labels
 from .evidence_selection import select_evidence_times
+from .evidence_objects import evidence_object, state_history
 
 log = logging.getLogger("forte.pipeline")
 
@@ -111,44 +112,67 @@ def vlm_answer(cache, qid, field, t, tol=0.6):
     return best[1] if best else None
 
 
-def draw_evidence(fr, sc, t, money_seen=None, vlm_cache=None):
+def draw_evidence(fr, sc, t, money_seen=None, vlm_cache=None, objects_out=None):
     """Рамки на кадре: стол, дверь, сейф, люди в помещении (роль), предметы на столе."""
     labels = []
-    def rect(b, c, th=2, label=None, below=False):
+    def rect(b, c, th=2, label=None, below=False, object_id=None, kind=None, history=None):
         x1, y1, x2, y2 = [int(v) for v in b]
         cv2.rectangle(fr, (x1, y1), (x2, y2), c, th)
         if label:
             labels.append((b, c, label, below))
+            if objects_out is not None and object_id:
+                name, separator, state = label.partition(": ")
+                obj = evidence_object(object_id, kind, name, state if separator else "Виден на кадре",
+                                      b, fr.shape[1], fr.shape[0], c, history)
+                if obj:
+                    objects_out.append(obj)
+
+    def vlm_history(qid, field, names):
+        points = []
+        for key, value in getattr(vlm_cache, "data", {}).items():
+            q, _, ts = key.partition("@")
+            if q == qid and isinstance(value, dict) and field in value:
+                try:
+                    points.append((float(ts), value[field]))
+                except ValueError:
+                    continue
+        # Sparse VLM queries are individual observations, not continuous states.
+        return [{"timestamp_sec": round(ti, 2), "state": names.get(value, "Состояние не определено")}
+                for ti, value in sorted(points)]
 
     if sc.door:
         a = vlm_answer(vlm_cache, "door", "door", t)
         # подпись под рамкой: дверь обычно начинается у верхнего края, там плашка времени
         rect(sc.door, (0, 0, 255) if a == "open" else (190, 190, 190), 2 if a == "open" else 1,
-             {"open": "Дверь: открыта", "closed": "Дверь: закрыта"}.get(a, "Дверь: состояние неясно"), below=True)
+             {"open": "Дверь: открыта", "closed": "Дверь: закрыта"}.get(a, "Дверь: состояние неясно"), below=True,
+             object_id="scene:door", kind="door", history=vlm_history("door", "door", {"open": "открыта", "closed": "закрыта"}))
     laptop = getattr(sc, "laptop", None)
     if laptop:
         a = vlm_answer(vlm_cache, "laptop", "screen", t)
         if a is not None:  # рамку ноутбука показываем, только если о нём спрашивали VLM
-            rect(laptop, (0, 0, 255) if a == "unlocked" else (200, 200, 200), 2, {"unlocked": "Экран: не заблокирован", "locked": "Экран: заблокирован"}.get(a, "Экран: состояние неясно"), below=True)
+            rect(laptop, (0, 0, 255) if a == "unlocked" else (200, 200, 200), 2, {"unlocked": "Экран: не заблокирован", "locked": "Экран: заблокирован"}.get(a, "Экран: состояние неясно"), below=True,
+                 object_id="scene:laptop", kind="screen", history=vlm_history("laptop", "screen", {"unlocked": "не заблокирован", "locked": "заблокирован"}))
     if sc.desk:
         # подпись под рамкой: сверху стол перекрыт рамкой кассира
         pm = money_p_at(money_seen, t)
-        rect(sc.desk, (255, 255, 255), 1, "Рабочий стол", below=True)
+        rect(sc.desk, (255, 255, 255), 1, "Рабочий стол", below=True, object_id="scene:desk", kind="desk")
     if sc.safe:
         p = safe_p_at(sc, t)
+        safe_history = state_history(sc.safe_prob or [], lambda p: "открыт" if p >= 0.5 else "закрыт", max_gap=1.5)
         # подпись под рамкой: сверху сейф обычно перекрыт рамкой кассира
         if p is None:
-            rect(sc.safe, (200, 200, 0), 1, "Сейф", below=True)
+            rect(sc.safe, (200, 200, 0), 1, "Сейф: состояние неясно", below=True, object_id="scene:safe", kind="safe", history=safe_history)
         elif p >= 0.5:
-            rect(sc.safe, (0, 0, 255), 2, "Сейф: открыт", below=True)
+            rect(sc.safe, (0, 0, 255), 2, "Сейф: открыт", below=True, object_id="scene:safe", kind="safe", history=safe_history)
         else:
-            rect(sc.safe, (200, 200, 0), 1, "Сейф: закрыт", below=True)
+            rect(sc.safe, (200, 200, 0), 1, "Сейф: закрыт", below=True, object_id="scene:safe", kind="safe", history=safe_history)
     for tr in sc.tracks:
         if tr.start - 0.01 <= t <= tr.end + 0.01:
             b = sc.box_at(tr, t, tol=0.3)
             if b is not None:
                 role = sc.roles.get(tr.tid, "visitor")
-                rect(b, COL_ROLE.get(role, (0, 0, 255)), 2, {"cashier": "Кассир", "visitor": "Посетитель"}.get(role, "Человек"))
+                rect(b, COL_ROLE.get(role, (0, 0, 255)), 2, {"cashier": "Кассир", "visitor": "Посетитель"}.get(role, "Человек"),
+                     object_id=f"person:{tr.tid}", kind="person")
     if len(sc.owl_times) and sc.desk:
         k = int(np.argmin(np.abs(sc.owl_times - t)))
         if abs(sc.owl_times[k] - t) <= 0.6:
@@ -160,7 +184,9 @@ def draw_evidence(fr, sc, t, money_seen=None, vlm_cache=None):
                 if any(kd == kind and iou(b, ob) > 0.5 for kd, ob in drawn):
                     continue
                 drawn.append((kind, b))
-                rect(b, COL_OBJ[kind], 2, {"money": "Банкноты", "bag": "Сумка", "personal": "Предмет", "cup": "Чашка"}[kind])
+                # Small items are not tracked across frames: do not invent identities.
+                rect(b, COL_OBJ[kind], 2, {"money": "Банкноты", "bag": "Сумка", "personal": "Предмет", "cup": "Чашка"}[kind],
+                     object_id=f"item:{t:.3f}:{len(drawn)}", kind=kind)
     fr = render_labels(fr, labels)
     stamp = f"{int(t)//60:02d}:{t % 60:04.1f}"
     (tw, th), _ = cv2.getTextSize(stamp, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
@@ -366,8 +392,10 @@ class Analyzer:
                     fr = read_frame(path, te - 0.3)
                 if fr is None:
                     continue
+                objects = []
+                annotated = draw_evidence(fr, sc, te, money_seen, vlm_cache, objects_out=objects)
                 frames.append({"timestamp_sec": round(te, 1),
-                               "image_base64": jpeg_b64(draw_evidence(fr, sc, te, money_seen, vlm_cache))})
+                               "image_base64": jpeg_b64(annotated), "objects": objects})
             violations.append({
                 "type": d["type"],
                 "timecode_sec": round(float(v.t), 1),
