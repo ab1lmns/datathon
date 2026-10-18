@@ -28,6 +28,7 @@ from .rules import detect
 from .scene import BAG_Q, CACHE, CUP_Q, MONEY_Q, PERSONAL_Q, build_scene, center, inside, iou
 from .video import read_frame
 from .evidence_labels import render_labels
+from .evidence_selection import select_evidence_times
 
 log = logging.getLogger("cashguard.pipeline")
 
@@ -176,17 +177,8 @@ def jpeg_b64(frame) -> str:
 
 
 def evidence_times(v, dur) -> list[float]:
-    """Момент нарушения + моменты из Violation.evidence_t, по возрастанию, без повторов, <= 3."""
-    hi = max(0.0, dur - 0.05)
-    ts = sorted(min(max(0.0, float(x)), hi) for x in [v.t, *v.evidence_t])
-    out = []
-    for x in ts:
-        if not out or x - out[-1] >= 0.4:
-            out.append(x)
-    if len(out) > MAX_FRAMES:  # оставить момент нарушения и крайние
-        main = min(max(0.0, float(v.t)), hi)
-        out = sorted({main, out[0], out[-1]})[:MAX_FRAMES]
-    return out
+    """Real event moments plus before/after context; never duplicate to fill slots."""
+    return select_evidence_times(v.t, v.evidence_t, dur)
 
 
 def basis(vtype: str) -> str:
