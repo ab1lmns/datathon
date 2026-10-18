@@ -77,7 +77,9 @@ def append_person_events(result, path, scene, recovered):
                 if not ok:
                     raise RuntimeError('person event evidence decode failed')
                 actual = cap.get(cv2.CAP_PROP_POS_MSEC)/1000
-                frames.append(dict(timestamp_sec=round(actual,6),image_base64=jpeg_b64(draw_evidence(frame,scene,actual))))
+                objects = []
+                annotated = draw_evidence(frame,scene,actual,objects_out=objects)
+                frames.append(dict(timestamp_sec=round(actual,6),image_base64=jpeg_b64(annotated),objects=objects))
             description = ('В зоне рабочего места рядом с кассиром наблюдается другой человек. '
                 'Визуальная проверка различает две фигуры на подтверждённом отрезке, '
                 'а не считает вторую отражением. Полномочия человека по видео не установлены; '

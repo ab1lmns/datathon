@@ -67,6 +67,7 @@ def evidence_observations(observations, event_time):
 
 def render_evidence(path, observations):
     from forte.evidence_labels import render_labels
+    from forte.evidence_objects import evidence_object
     cap = cv2.VideoCapture(str(path))
     frames = []
     try:
@@ -78,17 +79,21 @@ def render_evidence(path, observations):
             pts = cap.get(cv2.CAP_PROP_POS_MSEC)/1000
             if abs(pts-obs['pts_sec']) > 0.001:
                 raise ValueError('evidence seek timestamp does not match decoded scan')
-            labels = []
-            for d in obs['on_desk']:
+            labels, objects = [], []
+            for index, d in enumerate(obs['on_desk']):
                 box = d['box']
                 cv2.rectangle(frame, tuple(map(int, box[:2])), tuple(map(int, box[2:])), (112, 35, 160), 2)
                 labels.append((box, (112, 35, 160), 'Папка', False))
+                obj = evidence_object(f"folder:{obs['frame_index']}:{index}", 'folder', 'Папка',
+                    'Видна на столе; содержимое неизвестно', box, frame.shape[1], frame.shape[0], (112,35,160))
+                if obj:
+                    objects.append(obj)
             frame = render_labels(frame, labels)
             cv2.putText(frame, f'{pts:.3f} s', (8, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
             ok, jpeg = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 90])
             if not ok:
                 raise RuntimeError('evidence encode failed')
-            frames.append(dict(timestamp_sec=round(pts, 6), image_base64=base64.b64encode(jpeg).decode()))
+            frames.append(dict(timestamp_sec=round(pts, 6), image_base64=base64.b64encode(jpeg).decode(), objects=objects))
     finally:
         cap.release()
     return frames

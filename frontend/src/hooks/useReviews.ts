@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { analyze, TIMEOUT_MS, validateVideo } from '../api/client';
 import type { ReviewJob, Settings } from '../api/types';
-// Submission contains only actual API results; source videos are not published.
+// Only actual API results are shipped; source videos are not published.
 export const samples: ReviewJob[] = [];
 export function useReviews(settings:Settings){
  const [jobs,setJobs]=useState<ReviewJob[]>(samples);const controllers=useRef(new Map<string,AbortController>());const urls=useRef<string[]>([]);
@@ -15,7 +15,7 @@ export function useReviews(settings:Settings){
    if(settings.mode==='demo'){
     await new Promise<void>((resolve,reject)=>{const t=setTimeout(resolve,1800);controller.signal.addEventListener('abort',()=>{clearTimeout(t);reject(new DOMException('Aborted','AbortError'))},{once:true})});
     // Never fabricate a verdict for an arbitrary uploaded file, even in demo mode.
-    patch(job.id,{status:'failed',error:'Демо завершено. Для анализа вашей записи подключите API в настройках. Готовые примеры доступны в списке.'});
+    patch(job.id,{status:'failed',error:'Демо завершено. Для анализа вашей записи подключите API в настройках. '});
    }else await analyze(job.file,settings,controller.signal,result=>{
     if(result.status==='done')patch(job.id,{remoteId:result.job_id,status:result.verdict==='violation'?'attention':'clean',events:result.violations.map(v=>({title:v.type,time:v.timecode_sec,description:v.description,frames:v.evidence_frames,rule:v.rule})),progress:100});
     else if(result.status==='failed')patch(job.id,{remoteId:result.job_id,status:'failed',error:result.error||'Сервер не смог обработать запись.'});

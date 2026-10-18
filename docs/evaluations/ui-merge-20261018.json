@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-18",
+  "upstream_commit": "b25ef9bced149eee02f4778d38de1ed1bd9e53ce",
+  "model_release_commit": "1d2f817",
+  "backend_tests_passed": 46,
+  "frontend_tests_passed": 10,
+  "production_build": "passed",
+  "runtime_manifest_files": 65,
+  "browser_visual_check": "not_run_browser_unavailable",
+  "server_smoke": [
+    {
+      "video": "X-24",
+      "job_id": "0f9ca1deaa82",
+      "verdict": "violation",
+      "seconds": 8.04,
+      "event_count": 1,
+      "object_kinds": [
+        "folder"
+      ]
+    },
+    {
+      "video": "X-19",
+      "job_id": "0ef45468c8e3",
+      "verdict": "no_violation",
+      "seconds": 22.09,
+      "event_count": 0,
+      "object_kinds": []
+    }
+  ],
+  "public_smoke": {
+    "base": "https://forte.makquiz.site:14901",
+    "root_matches_local_build": true,
+    "assets_match": [
+      "/assets/index-DbDOKa4O.js",
+      "/assets/index-DAHILCpq.css"
+    ],
+    "docs_ok": true,
+    "missing_key_status": 401,
+    "video": "X-30",
+    "job_id": "06fcff28cb05",
+    "verdict": "violation",
+    "seconds": 30.46,
+    "evidence_frames": 3,
+    "object_counts": [
+      4,
+      5,
+      5
+    ],
+    "legal_sources_present": true
+  },
+  "public_response_frontend_parser": "passed",
+  "full_40_video_regression_repeated": false,
+  "previous_full_regression": {
+    "tp": 17,
+    "fn": 4,
+    "fp": 0,
+    "tn": 19,
+    "report": "observations-release-20261018.json"
+  }
+}
