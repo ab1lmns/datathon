@@ -52,6 +52,7 @@ export function ReviewDetail({ job, onPlay, onRule, onCancel, onRetry, onSetting
         <h3 className="event-title">{event?.title || 'Всё спокойно'}</h3>
         <p className="description">{event?.description || (job.demo ? 'В исходной разметке эта запись отмечена «без нарушения».' : 'По результатам анализа событий, требующих внимания, не обнаружено.')}</p>
       </div>
+      {event?.rule?.reason&&<div className="notice"><Info size={18}/><span>Нормативная применимость требует проверки. {event.rule.reason}</span></div>}
       {!!event?.frames.length && <div className="evidence-section"><span className="overline">КАДРЫ-ДОКАЗАТЕЛЬСТВА</span><div className="evidence-strip">{event.frames.map((frame, i) => <button key={i} onClick={() => onEvidence(frameUrl(frame.image_base64), frame.timestamp_sec)}><img src={frameUrl(frame.image_base64)} alt={`Кадр ${i + 1} на ${clock(frame.timestamp_sec)}`}/><span>{clock(frame.timestamp_sec)}<ArrowDownToLine size={12}/></span></button>)}</div></div>}
       <div className="detail-actions"><button className="soft-button" onClick={() => onPlay(event)}>{event ? 'Открыть фрагмент' : 'Смотреть видео'}<ArrowRight size={16}/></button>{event && <button className="text-link" onClick={() => onRule(event)}><FileText size={14}/>Правило</button>}</div>
       <div className="human-note"><Info size={14}/><span>Вывод требует проверки человеком</span></div>

@@ -1,6 +1,6 @@
 /** Jury API contract. Optional fields below are frontend extensions, not requirements of the supplied JSON schema. */
 export interface EvidenceFrame { timestamp_sec: number; image_base64: string }
-export interface RuleSource { document: string; section?: string; url?: string }
+export interface RuleSource { document: string; section?: string; url?: string; assessment?: string; reason?: string; checked_at?: string; sources?: {document:string; section:string; url?:string}[]; unknown_conditions?: {id:string; text:string; value:string}[] }
 export interface Violation { type: string; timecode_sec: number; description: string; evidence_frames: EvidenceFrame[]; rule?: RuleSource }
 export type JobResponse =
  | { job_id: string; status: 'processing'; progress?: number }

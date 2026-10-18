@@ -11,30 +11,13 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from starlette.staticfiles import StaticFiles
 
-from cashguard.registry import REGISTRY, refs
 
 ROOT = Path(__file__).resolve().parents[2]
 DIST = Path(os.getenv("FORTE_FRONTEND_DIST", str(ROOT / "frontend" / "dist"))).resolve()
 UPSTREAM = os.getenv("FORTE_API_UPSTREAM", "http://127.0.0.1:8000").rstrip("/")
 
 
-def with_rule_sources(payload):
-    """Attach registry metadata only; preserve all model results and evidence."""
-    if not isinstance(payload, dict) or payload.get("status") != "done":
-        return payload
-    lookup = {rule["name"]: code for code, rule in REGISTRY.items()}
-    for event in payload.get("violations", []):
-        code = lookup.get(event.get("type"))
-        sources = refs(code) if code else []
-        if sources and "rule" not in event:
-            first = sources[0]
-            event["rule"] = {
-                "document": first["doc"],
-                "section": "; ".join(s["label"] for s in sources)
-                + (" (косвенное нормативное основание)" if not REGISTRY[code]["direct"] else ""),
-                "url": first["url"],
-            }
-    return payload
+from .regulatory import enrich as with_rule_sources
 
 
 @asynccontextmanager
