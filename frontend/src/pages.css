@@ -47,6 +47,17 @@ body{overflow-x:clip}
 @media(min-width:761px) and (max-width:900px){.sidebar-faq{padding-inline:5px}.sidebar-faq h2{font-size:11px}.sidebar-faq summary,.sidebar-faq details p{font-size:9px}}
 @media(max-width:760px){.sidebar-faq{display:none}}
 
+.report-rule{min-width:0;padding:18px;background:#fcf5f9;border:1px solid #f0dfe9;border-radius:12px;color:#76566b;overflow-wrap:anywhere}
+.full-report .report-rule{grid-column:2;align-self:start}
+.report-rule h3{display:flex;align-items:center;gap:8px;font-size:13px;color:#8b2451;margin:0 0 14px}
+.report-rule h4{font-size:13px;line-height:1.7;color:#60364e;margin:0 0 8px}
+.report-rule p,.report-rule li,.report-rule blockquote{font-size:12px;line-height:1.8}
+.report-rule p{margin:8px 0}.report-rule .text-link{display:inline-flex;margin-top:8px}
+.report-rule-source{margin-top:14px;padding-top:12px;border-top:1px solid #ecdae5}
+.report-rule blockquote{margin:10px 0;padding-left:12px;border-left:2px solid #c38ba6;color:#76566b}
+.rule-applicability{color:#8b5b74}.rule-conditions{margin-top:14px}.rule-conditions>p{font-weight:600}.rule-conditions ul{margin:6px 0;padding-left:20px}
+@media(max-width:1100px){.full-report .report-rule{grid-column:1}}
+
 /* Video inspection controls: source footage, annotated moments and context loop. */
 .full-report .review-player{grid-column:1;grid-row:2/6;align-self:start;min-width:0}
 .review-video-stage{position:relative;background:#29212b;border-radius:12px;overflow:hidden}
