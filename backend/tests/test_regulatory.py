@@ -26,3 +26,26 @@ class RegulatoryTest(unittest.TestCase):
         ref=result['violations'][0]['rule']
         self.assertEqual(ref['rule_ids'],['CASH_035'])
         self.assertTrue(all(s['url'].startswith('https://adilet.zan.kz/') for s in ref['sources']))
+    def test_legacy_legal_claim_replaced_without_changing_visual_result(self):
+        for code,r in REGISTRY.items():
+            for lead in ('Возможное нарушение требования','Может не соответствовать требованию'):
+                e={'type':r['name'],'description':f"Наблюдение. {lead}: {r['norm']}.",
+                   'timecode_sec':3,'evidence_frames':[{'timestamp_sec':3}]}
+                out=enrich({'status':'done','verdict':'violation','violations':[e.copy()]})
+                v=out['violations'][0]
+                self.assertTrue(v['description'].startswith('Наблюдение. '))
+                self.assertNotIn(lead,v['description'])
+                for key in ('type','timecode_sec','evidence_frames'):self.assertEqual(v[key],e[key])
+                self.assertEqual(out['verdict'],'violation')
+                self.assertEqual(enrich(out),out)
+    def test_workstation_is_not_client_online_banking_rule(self):
+        r=reference_for('L_workstation_unlocked')
+        self.assertIn('30 минут',r['reason'])
+        self.assertEqual(r['assessment'],'NEEDS_REVIEW')
+        self.assertTrue(r['sources'])
+        self.assertTrue(all(s['url'].startswith('https://adilet.zan.kz/') for s in r['sources']))
+    def test_mapped_sources_have_explicit_provenance(self):
+        for code in MAPPING:
+            r=reference_for(code)
+            self.assertEqual(r['source_verification'],'PACKAGE_REFERENCE_NOT_REVERIFIED')
+            self.assertTrue(all(s['section'] and s['url'] for s in r['sources']))

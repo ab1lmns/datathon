@@ -5,7 +5,7 @@
   "assets/fonts/LICENSE-DejaVu.txt": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9",
   "cashguard/evidence_selection.py": "17d116ef00049d233536daa443c08a0331e8616ba363fe23cd9d0270ffea1f8b",
   "service/gateway.py": "7032ac3fcd6345523197e0e025bb8aac796508621566cdb42597e96601a27be2",
-  "service/regulatory.py": "143ae4f2d4b9f76c8cabd37ada0a06ac5be45ab2b140cd0d3ffd6a4744219c9c",
+  "service/regulatory.py": "90e3e2c36b9a964a9792f4050e28771e9f722b9543fef6590335ed913ac00732",
   "regulatory/regulatory_rules.json": "efb742bab7c40234aa2e9526a077f5dfa5113035e3a583091c741ecf6dcc3f08",
   "regulatory/regulatory_rules.schema.json": "b6dde1acc22d4cfe533533405997455259f804314aec751239cbb9fcd3bbf9d8",
   "regulatory/provenance.json": "33fb9138062a05d7d809fec40ba19d71c4df02335c2f315aeaf56c825c18cf1b"

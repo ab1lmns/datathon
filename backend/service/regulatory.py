@@ -21,6 +21,14 @@ MAPPING = {
 
 
 def reference_for(code):
+    if code == 'L_workstation_unlocked':
+        legacy = refs(code)
+        sources = [{'document':r['doc'], 'section':r['label'], 'url':r['url']} for r in legacy]
+        first = sources[0] if sources else {'document':'Нормативное соответствие не установлено'}
+        return {**first, 'assessment':'NEEDS_REVIEW', 'rule_ids':[], 'sources':sources,
+                'reason':'Связанная справочная норма, не доказательство нарушения работником. Требование автоматической блокировки после 30 минут относится к системе; короткий ролик не подтверждает его нарушение. Обязанности конкретного работника нужно проверить по внутренним правилам банка. Клиентский документ об онлайн-банкинге не применяется как обязанность кассира.',
+                'unknown_conditions':[{'id':'workstation_policy','text':'Внутренние требования банка, длительность бездействия и состояние сессии','value':'UNKNOWN'}],
+                'checked_at':None, 'source_verification':'LEGACY_REFERENCE_NOT_REVERIFIED'}
     if code not in MAPPING:
         sources = refs(code) if code else []
         return {
@@ -44,6 +52,7 @@ def reference_for(code):
     return {**first, 'assessment':'NEEDS_REVIEW', 'rule_ids':[r['rule_id'] for r in rules],
             'reason':reason, 'sources':sources, 'unknown_conditions':unknown,
             'checked_at':DATA['checked_at'],
+            'source_verification':'PACKAGE_REFERENCE_NOT_REVERIFIED',
             'verification_note':'Дата и VERIFIED — сведения поставленного нормативного пакета. Условия события моделью не подтверждены.'}
 
 
@@ -51,5 +60,14 @@ def enrich(payload):
     if not isinstance(payload,dict) or payload.get('status')!='done': return payload
     lookup={v['name']:k for k,v in REGISTRY.items()}
     for event in payload.get('violations',[]):
-        event['rule']=reference_for(lookup.get(event.get('type')))
+        code=lookup.get(event.get('type'))
+        event['rule']=reference_for(code)
+        # Replace only the exact legacy normative suffix; never edit visual evidence or unknown text.
+        description=event.get('description')
+        if code and isinstance(description,str):
+            for lead in ('Возможное нарушение требования', 'Может не соответствовать требованию'):
+                suffix=f"{lead}: {REGISTRY[code]['norm']}."
+                if description.endswith(suffix):
+                    event['description']=description[:-len(suffix)].rstrip() + ' Нормативная применимость не установлена автоматически. Точный пункт, официальный источник и условия применения приведены в разделе «Правило».'
+                    break
     return payload
