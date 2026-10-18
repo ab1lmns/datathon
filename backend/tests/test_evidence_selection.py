@@ -1,5 +1,5 @@
 import unittest
-from cashguard.evidence_selection import select_evidence_times
+from forte.evidence_selection import select_evidence_times
 
 class EvidenceSelectionTest(unittest.TestCase):
     def test_two_become_before_event_after(self):

@@ -1,7 +1,7 @@
 """Link model events to reference norms, without inferring missing legal conditions."""
 import json
 from pathlib import Path
-from cashguard.registry import REGISTRY, refs
+from forte.registry import REGISTRY, refs
 
 DATA = json.loads((Path(__file__).resolve().parents[1] / 'regulatory/regulatory_rules.json').read_text())
 RULES = {r['rule_id']: r for r in DATA['rules']}

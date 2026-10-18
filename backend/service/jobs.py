@@ -16,7 +16,7 @@ from pathlib import Path
 
 from .worker import worker_main
 
-log = logging.getLogger("cashguard.service")
+log = logging.getLogger("forte.service")
 
 MAX_ATTEMPTS = 2
 LIMIT_SEC = 300  # ТЗ: результат не позже 5 минут после загрузки
@@ -139,7 +139,7 @@ class Dispatcher:
     def _spawn(self):
         self.tasks, self.events = self.ctx.Queue(), self.ctx.Queue()
         self.proc = self.ctx.Process(target=worker_main, args=(self.tasks, self.events, self.log_file),
-                                     name="cashguard-worker", daemon=True)
+                                     name="forte-worker", daemon=True)
         self.proc.start()
         self.state = "loading"
         log.info("worker started, pid %s, loading models", self.proc.pid)

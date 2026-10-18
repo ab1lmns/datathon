@@ -1,7 +1,7 @@
 """Анализ одного видео целиком: детекторы → кэш признаков → сцена → [классификаторы сейфа и денег] →
 [VLM: экран ноутбука, дверь] → правила → кадры-доказательства.
 
-    from cashguard.pipeline import Analyzer
+    from forte.pipeline import Analyzer
     an = Analyzer()                                   # модели грузятся один раз
     res = an.analyze("data/open/videos/Х-15.mov")     # dict по схеме API (ТЗ, раздел 10)
 
@@ -30,16 +30,16 @@ from .video import read_frame
 from .evidence_labels import render_labels
 from .evidence_selection import select_evidence_times
 
-log = logging.getLogger("cashguard.pipeline")
+log = logging.getLogger("forte.pipeline")
 
 # Частоты детекторов. 2.5/1 кадр/с вместо 5/2: на обучающих роликах качество то же
 # (14/21, 0 ложных, проверено прореживанием кэша), а обработка ~в 2 раза быстрее — запас по лимиту 5 минут.
-FPS = float(os.environ.get("CASHGUARD_FPS", "2.5"))          # RT-DETR
-OWL_FPS = float(os.environ.get("CASHGUARD_OWL_FPS", "1.0"))  # OWLv2
+FPS = float(os.environ.get("FORTE_FPS", "2.5"))          # RT-DETR
+OWL_FPS = float(os.environ.get("FORTE_OWL_FPS", "1.0"))  # OWLv2
 MAX_FRAMES = 3     # кадров-доказательств на нарушение (ТЗ: 1–3)
 JPEG_QUALITY = 85
 OBJ_THR = 0.2      # порог OWL для рамок предметов на кадре, как в scripts/debug_scene.py
-# необязательные классификаторы состояний (DINOv2 + логрегрессия, cashguard/states.py)
+# необязательные классификаторы состояний (DINOv2 + логрегрессия, forte/states.py)
 SAFE_CLF = ROOT / "models" / "safe_clf.joblib"    # «сейф открыт» — правило B
 MONEY_CLF = ROOT / "models" / "money_clf.joblib"  # «деньги на столе» — правила A и C
 # локальная VLM (Qwen3-VL-4B) в моменты событий: L — экран не заблокирован при уходе, H — дверь не закрыта
@@ -55,7 +55,7 @@ COL_OBJ = {"money": (0, 200, 0), "bag": (0, 140, 255), "personal": (255, 0, 255)
 def _load_extract():
     """extract() из scripts/extract_features.py: тот же формат кэша, который читает build_scene."""
     spec = importlib.util.spec_from_file_location(
-        "_cashguard_extract_features", ROOT / "scripts" / "extract_features.py")
+        "_forte_extract_features", ROOT / "scripts" / "extract_features.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod.extract
@@ -191,7 +191,7 @@ def basis(vtype: str) -> str:
 
 
 def _load_clf(name: str, env: str, path: Path):
-    """Необязательный классификатор из cashguard/states.py. Нет модели или ошибка — правило без него."""
+    """Необязательный классификатор из forte/states.py. Нет модели или ошибка — правило без него."""
     if os.environ.get(env, "1") == "0":
         log.info("%s off: %s=0", name, env)
         return None
@@ -238,8 +238,8 @@ class Analyzer:
         self.owl = OwlDetector(device=self.coco.dev)
         self.device = self.coco.dev
         self._extract = _load_extract()
-        self.safe_clf = _load_clf("SafeClassifier", "CASHGUARD_SAFE_CLF", SAFE_CLF)
-        self.money_clf = _load_clf("MoneyClassifier", "CASHGUARD_MONEY_CLF", MONEY_CLF)
+        self.safe_clf = _load_clf("SafeClassifier", "FORTE_SAFE_CLF", SAFE_CLF)
+        self.money_clf = _load_clf("MoneyClassifier", "FORTE_MONEY_CLF", MONEY_CLF)
         self.vlm = self._load_vlm()
         self.load_sec = round(time.perf_counter() - t0, 1)
         log.info("models loaded on %s in %.1fs (safe classifier: %s, money classifier: %s, vlm: %s)", self.device,
@@ -248,8 +248,8 @@ class Analyzer:
 
     def _load_vlm(self):
         """Qwen3-VL-4B (~9 ГБ). Не загрузилась — правила L и H молчат, остальное работает."""
-        if os.environ.get("CASHGUARD_VLM", "1") == "0":
-            log.info("vlm off: CASHGUARD_VLM=0")
+        if os.environ.get("FORTE_VLM", "1") == "0":
+            log.info("vlm off: FORTE_VLM=0")
             return None
         try:
             from .vlm import VLM

@@ -1,6 +1,6 @@
 """Асинхронный API для жюри (X-API-Key) и веб-интерфейс.
 
-    CASHGUARD_API_KEY=... uvicorn service.app:app --host 0.0.0.0 --port 8000
+    FORTE_API_KEY=... uvicorn service.app:app --host 0.0.0.0 --port 8000
 
 Запускать одним процессом uvicorn (без --workers и --reload): задачи обрабатывает
 один воркер-процесс, которым управляет этот процесс.
@@ -25,12 +25,12 @@ from .logs import setup_logging
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC = Path(__file__).resolve().parent / "static"
-DATA = Path(os.environ.get("CASHGUARD_DATA_DIR", ROOT / "data" / "service"))
-API_KEY = os.environ.get("CASHGUARD_API_KEY", "")
-TIMEOUT_SEC = float(os.environ.get("CASHGUARD_JOB_TIMEOUT", "300"))
-MAX_UPLOAD = int(float(os.environ.get("CASHGUARD_MAX_UPLOAD_MB", "200")) * 1024 * 1024)
-KEEP_API_VIDEOS = os.environ.get("CASHGUARD_KEEP_API_VIDEOS", "0") == "1"
-LEGACY_DB = os.environ.get("CASHGUARD_LEGACY_DB", "")
+DATA = Path(os.environ.get("FORTE_DATA_DIR", ROOT / "data" / "service"))
+API_KEY = os.environ.get("FORTE_API_KEY", "")
+TIMEOUT_SEC = float(os.environ.get("FORTE_JOB_TIMEOUT", "300"))
+MAX_UPLOAD = int(float(os.environ.get("FORTE_MAX_UPLOAD_MB", "200")) * 1024 * 1024)
+KEEP_API_VIDEOS = os.environ.get("FORTE_KEEP_API_VIDEOS", "0") == "1"
+LEGACY_DB = os.environ.get("FORTE_LEGACY_DB", "")
 
 UPLOADS = DATA / "uploads"
 LOG_FILE = DATA / "service.log"
@@ -39,7 +39,7 @@ LOG_FILE = DATA / "service.log"
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     if not API_KEY:
-        raise RuntimeError("Задайте ключ API: CASHGUARD_API_KEY=<ключ> uvicorn service.app:app ...")
+        raise RuntimeError("Задайте ключ API: FORTE_API_KEY=<ключ> uvicorn service.app:app ...")
     UPLOADS.mkdir(parents=True, exist_ok=True)
     setup_logging(str(LOG_FILE), "server")
     store = JobStore(DATA)

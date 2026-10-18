@@ -11,12 +11,12 @@ import time
 
 def worker_main(tasks, events, log_file: str):
     os.environ.setdefault("HF_HUB_OFFLINE", "1")  # веса уже в кэше, сеть не нужна
-    os.environ.pop("CASHGUARD_VARIANT", None)     # сервис работает с оригинальными видео
+    os.environ.pop("FORTE_VARIANT", None)     # сервис работает с оригинальными видео
     from service.logs import setup_logging
     setup_logging(log_file, "worker")
-    log = logging.getLogger("cashguard.worker")
+    log = logging.getLogger("forte.worker")
 
-    from cashguard.pipeline import Analyzer
+    from forte.pipeline import Analyzer
     an = Analyzer()
     an.warmup()
     events.put(("ready", {"device": an.device, "load_sec": an.load_sec, "pid": os.getpid()}))

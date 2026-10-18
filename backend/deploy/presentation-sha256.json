@@ -1,12 +1,13 @@
 {
-  "cashguard/pipeline.py": "27c9a9d65b3f6b1a1ca8538c5c289fc6dcac1f4b0887012aa4055d35fd2330d3",
-  "cashguard/evidence_labels.py": "678f950838de14574d909fe014bb9e08d359061f4a61d238555f28b156b1b2cc",
+  "forte/pipeline.py": "3c1db6b6b1ea486338080bf4ac1b0a5b3f4a5f6836b24a376f961f6ce31f2e9d",
+  "forte/evidence_labels.py": "678f950838de14574d909fe014bb9e08d359061f4a61d238555f28b156b1b2cc",
   "assets/fonts/DejaVuSans.ttf": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280",
   "assets/fonts/LICENSE-DejaVu.txt": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9",
-  "cashguard/evidence_selection.py": "17d116ef00049d233536daa443c08a0331e8616ba363fe23cd9d0270ffea1f8b",
+  "forte/evidence_selection.py": "17d116ef00049d233536daa443c08a0331e8616ba363fe23cd9d0270ffea1f8b",
   "service/gateway.py": "7032ac3fcd6345523197e0e025bb8aac796508621566cdb42597e96601a27be2",
-  "service/regulatory.py": "90e3e2c36b9a964a9792f4050e28771e9f722b9543fef6590335ed913ac00732",
+  "service/regulatory.py": "7bdcffeccf5ba49c151f6a316808feb82afcfefb2b974911b74e48520989ca80",
   "regulatory/regulatory_rules.json": "efb742bab7c40234aa2e9526a077f5dfa5113035e3a583091c741ecf6dcc3f08",
   "regulatory/regulatory_rules.schema.json": "b6dde1acc22d4cfe533533405997455259f804314aec751239cbb9fcd3bbf9d8",
-  "regulatory/provenance.json": "33fb9138062a05d7d809fec40ba19d71c4df02335c2f315aeaf56c825c18cf1b"
+  "regulatory/provenance.json": "33fb9138062a05d7d809fec40ba19d71c4df02335c2f315aeaf56c825c18cf1b",
+  "scripts/extract_features.py": "816c73f022db2e900a0cb7ce0a3bde61d3e072ed786fb60bf8e859bbd144ec17"
 }

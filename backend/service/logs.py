@@ -3,8 +3,8 @@ import sys
 
 
 def setup_logging(log_file: str, proc: str):
-    """Логгер cashguard.*: stdout + общий файл (сервер и воркер пишут в один)."""
-    root = logging.getLogger("cashguard")
+    """Логгер forte.*: stdout + общий файл (сервер и воркер пишут в один)."""
+    root = logging.getLogger("forte")
     if root.handlers:
         return
     fmt = logging.Formatter(f"%(asctime)s {proc:6} %(levelname)-7s %(name)s: %(message)s", "%Y-%m-%d %H:%M:%S")

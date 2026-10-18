@@ -3,7 +3,7 @@ import unittest
 import httpx
 from fastapi.testclient import TestClient
 from service.gateway import app, with_rule_sources
-from cashguard.registry import REGISTRY
+from forte.registry import REGISTRY
 
 class GatewayTest(unittest.TestCase):
     def test_registry_preserves_model_fields(self):

@@ -15,7 +15,7 @@ LABELS_XLSX = DATA / "open_labels.xlsx"
 TYPES_CSV = ROOT / "labels" / "types.csv"
 
 # Вариант набора: "" — оригинал; иначе синтетический ракурс из data/aug/<variant>/
-VARIANT = os.environ.get("CASHGUARD_VARIANT", "")
+VARIANT = os.environ.get("FORTE_VARIANT", "")
 
 
 def variant_dir(base: str) -> Path:

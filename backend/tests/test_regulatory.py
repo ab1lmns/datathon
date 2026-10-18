@@ -1,6 +1,6 @@
 import unittest
 from service.regulatory import RULES, MAPPING, reference_for, enrich
-from cashguard.registry import REGISTRY
+from forte.registry import REGISTRY
 
 class RegulatoryTest(unittest.TestCase):
     def test_no_unverified_rule_is_automatically_mapped(self):

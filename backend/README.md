@@ -1,6 +1,6 @@
 # Backend: воспроизводимый серверный снимок
 
-Экспорт действующего `/workspace/cashguard_live_20261017` от 18.10.2026. `cashguard/`, исходный `service/` и два joblib совпадают с SHA-256 экспортированного production. Дополнительно создан `service/gateway.py`; он не загружает модели и не меняет решения.
+Действующий backend: `/workspace/forte_live_20261018`. Пакет переименован в `forte`, переменные окружения — в `FORTE_*`. Контрольные суммы текущего релиза находятся в `deploy/`; исходный снимок сохранён в истории Git. Дополнительно создан `service/gateway.py`; он не загружает модели и не меняет решения.
 
 Обновление оформления кадров: русские подписи без tracker ID и confidence, читаемые тёмные плашки. Изменён только рендер в `pipeline.py`, добавлен `evidence_labels.py` и шрифт DejaVu с лицензией. Контрольные суммы этого обновления — `deploy/presentation-sha256.json`; исходный серверный манифест сохранён. Проверены реальные Х-25 (без нарушения) и Х-46 (событие и 2 JPEG).
 
@@ -56,7 +56,7 @@ FORTE_API_UPSTREAM=http://127.0.0.1:8000 \
 
 ## Действующий сервер
 
-- GPU API: `forte_api`, localhost:17070, исходники `/workspace/cashguard_live_20261017`.
+- GPU API: `forte_api`, localhost:17070, исходники `/workspace/forte_live_20261017`.
 - Новый UI/gateway: `forte_ui`, localhost:7860, `/workspace/forte_web_release_20261018`.
 - GPU API, checkpoint, SQLite и настройки распознавания при интеграции не изменены.
 - Откат UI: вернуть `/workspace/forte_web_release_20261018/forte-ui.before.sh` в `/opt/supervisor-scripts/forte-ui.sh`, затем `supervisorctl restart forte_ui`.
