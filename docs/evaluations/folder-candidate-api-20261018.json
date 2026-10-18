@@ -1,0 +1,53 @@
+{
+  "counts": {
+    "tp": 16,
+    "fn": 5,
+    "fp": 0,
+    "tn": 19
+  },
+  "videos": 40,
+  "baseline_events_preserved": 40,
+  "added": [
+    {
+      "video": "X-24",
+      "timecode_sec": 14.0,
+      "evidence_pts": [
+        13.0,
+        14.0,
+        14.5
+      ]
+    }
+  ],
+  "max_request_sec": 26.15,
+  "unauthenticated_status": 401,
+  "production_deployed": false,
+  "architecture": "isolated loopback API + live local baseline worker + learned folder head",
+  "legal_basis_for_folder": "not_established",
+  "independent_evaluation": false,
+  "production_integrity": {
+    "checked_files": 89,
+    "changed": [],
+    "health": {
+      "status": "ok",
+      "worker": "ready",
+      "device": "cuda",
+      "queue": 0,
+      "busy": false
+    }
+  },
+  "misses": [
+    "X-2",
+    "X-13",
+    "X-30",
+    "X-34",
+    "X-44"
+  ],
+  "previous_baseline_event_differences": [
+    "X-24"
+  ],
+  "checkpoint_sha256": "24ee6b8d06058ec202d3471df78e6400f991f81e2fdf588b3ce96b9e028af780",
+  "candidate_contract_tests": "4 passed",
+  "metric_scope": "Binary detection on known development videos; X-24 counted as A from prior user confirmation of folder status. Not independent generalization or regulatory correctness.",
+  "visual_evidence_review": "Three API JPEGs inspected: folder on desk, cashier departure context at 13.0, folder remains at 14.0 and 14.5.",
+  "candidate_process_stopped": true
+}

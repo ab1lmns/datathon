@@ -12,7 +12,7 @@ else:
         manifest.update(json.loads(overrides.read_text()))
 checked = []
 for name, expected in manifest.items():
-    if name.startswith(('forte/', 'service/', 'assets/fonts/', 'regulatory/')) or name in {'models/safe_clf.joblib', 'models/money_clf.joblib', 'scripts/extract_features.py'}:
+    if name.startswith(('forte/', 'service/', 'assets/fonts/', 'regulatory/')) or name in {'models/safe_clf.joblib', 'models/money_clf.joblib', 'models/folder_patch_heads.joblib', 'scripts/extract_features.py'}:
         actual = hashlib.sha256((root/name).read_bytes()).hexdigest()
         if actual != expected:
             raise SystemExit(f'Mismatch: {name}')

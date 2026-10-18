@@ -1,0 +1,170 @@
+{
+  "counts": {
+    "tp": 17,
+    "fn": 4,
+    "fp": 0,
+    "tn": 19
+  },
+  "videos": 40,
+  "baseline_events_preserved": 40,
+  "added": [
+    {
+      "video": "X-24",
+      "type": "Ценности оставлены без присмотра",
+      "timecode_sec": 14.0,
+      "evidence_pts": [
+        13.0,
+        14.0,
+        14.5
+      ]
+    },
+    {
+      "video": "X-30",
+      "type": "Посторонний в кассовом помещении",
+      "timecode_sec": 15.254,
+      "evidence_pts": [
+        14.733333,
+        15.266667,
+        15.8
+      ]
+    }
+  ],
+  "max_request_sec": 25.14,
+  "unauthenticated_status": 401,
+  "production_deployed": false,
+  "architecture": "isolated loopback API + live local baseline worker + reflection_candidate",
+  "legal_basis_for_folder": "not_established",
+  "independent_evaluation": false,
+  "production_integrity": {
+    "checked_files": 89,
+    "changed": [],
+    "health": {
+      "status": "ok",
+      "worker": "ready",
+      "device": "cuda",
+      "queue": 0,
+      "busy": false
+    }
+  },
+  "verification": {
+    "diagnostics": [
+      {
+        "video": "X-19",
+        "reflection": {
+          "checked": true,
+          "added": 0,
+          "diagnostics": [
+            {
+              "tid": 5,
+              "comparisons": [
+                {
+                  "other_tid": 3,
+                  "answers": [
+                    {
+                      "relationship": "same_person_or_reflection",
+                      "visual_reason": "Same white polo, hair, glasses, mirror reflection",
+                      "raw": "{\"relationship\":\"same_person_or_reflection\",\"visual_reason\":\"Same white polo, hair, glasses, mirror reflection\"}",
+                      "time_sec": 56.098
+                    },
+                    {
+                      "relationship": "same_person_or_reflection",
+                      "visual_reason": "Same white shirt, hair, glasses, mirror reflection",
+                      "raw": "{\"relationship\":\"same_person_or_reflection\",\"visual_reason\":\"Same white shirt, hair, glasses, mirror reflection\"}",
+                      "time_sec": 56.498
+                    },
+                    {
+                      "relationship": "same_person_or_reflection",
+                      "visual_reason": "Same white polo, hair, posture, mirror reflection",
+                      "raw": "{\"relationship\":\"same_person_or_reflection\",\"visual_reason\":\"Same white polo, hair, posture, mirror reflection\"}",
+                      "time_sec": 57.3
+                    }
+                  ],
+                  "different": false
+                }
+              ],
+              "recovered": false,
+              "recovered_interval": null
+            }
+          ]
+        }
+      },
+      {
+        "video": "X-30",
+        "reflection": {
+          "checked": true,
+          "added": 1,
+          "diagnostics": [
+            {
+              "tid": 2,
+              "comparisons": [
+                {
+                  "other_tid": 1,
+                  "answers": [
+                    {
+                      "relationship": "same_person_or_reflection",
+                      "visual_reason": "Pink cardigan, hair bun, same posture",
+                      "raw": "{\"relationship\":\"same_person_or_reflection\",\"visual_reason\":\"Pink cardigan, hair bun, same posture\"}",
+                      "time_sec": 12.444
+                    },
+                    {
+                      "relationship": "different_people",
+                      "visual_reason": "Different clothing, hair, and body type",
+                      "raw": "{\"relationship\":\"different_people\",\"visual_reason\":\"Different clothing, hair, and body type\"}",
+                      "time_sec": 15.254
+                    },
+                    {
+                      "relationship": "different_people",
+                      "visual_reason": "Different clothing, hair, and body appearance",
+                      "raw": "{\"relationship\":\"different_people\",\"visual_reason\":\"Different clothing, hair, and body appearance\"}",
+                      "time_sec": 18.465
+                    }
+                  ],
+                  "different": false
+                }
+              ],
+              "recovered": true,
+              "recovered_interval": [
+                15.254,
+                18.465
+              ]
+            }
+          ],
+          "total_sec": 7.29
+        }
+      }
+    ],
+    "source_pts_check": [
+      {
+        "evidence_pts": 14.733333,
+        "nearest_source_pts": 14.733333,
+        "error": 0.0
+      },
+      {
+        "evidence_pts": 15.266667,
+        "nearest_source_pts": 15.266667,
+        "error": 0.0
+      },
+      {
+        "evidence_pts": 15.8,
+        "nearest_source_pts": 15.8,
+        "error": 0.0
+      }
+    ],
+    "candidate_process_stopped": true
+  },
+  "misses": [
+    "X-2",
+    "X-13",
+    "X-34",
+    "X-44"
+  ],
+  "false_positives": [],
+  "previous_baseline_event_differences": [
+    "X-24",
+    "X-30"
+  ],
+  "unit_tests": "4 passed; decode-failure fix verified after full regression",
+  "metric_scope": "Binary detection on known development videos. Not independent camera generalization, event type/timing accuracy, or proof of legal applicability.",
+  "checkpoint_sha256": "24ee6b8d06058ec202d3471df78e6400f991f81e2fdf588b3ce96b9e028af780",
+  "visual_evidence_review": "All three X-30 JPEGs inspected: two visibly distinct people; first frame is context before verified interval. Original overlay also mislabels counting apparatus as safe; unchanged baseline object labels are not validated by this experiment."
+}

@@ -1,0 +1,85 @@
+{
+  "counts": {
+    "tp": 17,
+    "fn": 4,
+    "fp": 0,
+    "tn": 19
+  },
+  "misses": [
+    "X-2",
+    "X-13",
+    "X-34",
+    "X-44"
+  ],
+  "videos": 40,
+  "exact_event_matches_with_candidate": 40,
+  "max_request_sec": 25.65,
+  "standalone": true,
+  "unauthorized_status": 401,
+  "production_deployed": true,
+  "deployment": {
+    "production_deployed": true,
+    "model_version": "forte-observations-v1",
+    "smoke": [
+      {
+        "video": "X-24",
+        "job_id": "596452d3f9fe",
+        "verdict": "violation"
+      },
+      {
+        "video": "X-30",
+        "job_id": "fe09b7838773",
+        "verdict": "violation"
+      },
+      {
+        "video": "X-19",
+        "job_id": "5f874c324890",
+        "verdict": "no_violation"
+      }
+    ],
+    "health": {
+      "status": "ok",
+      "worker": "ready",
+      "device": "cuda",
+      "queue": 0,
+      "busy": false
+    },
+    "files": {
+      "forte/pipeline.py": "1e938f1207aa062ef421d6c79e826164af663e841ca406083b017502a9e88d87",
+      "forte/patch_features.py": "168d8f076139acd055ee5f019bd0549b1bd206b6cfd38e8f2dec21b2d3f03689",
+      "forte/folder_observations.py": "e32edc0c117acd3cbd57643290c3cc7ed9a3d5c29d20f353bf9e577817dcd6d7",
+      "forte/reflection.py": "cdec2c4fddbd4920089119a91c1ba2dc0bc5c2a76e3e35182e320f51fb358268",
+      "forte/observations.py": "11ddde0d242261da043f02d85aa475af14296514a48d15a4f24bbba05ecd1073",
+      "models/folder_patch_heads.joblib": "24ee6b8d06058ec202d3471df78e6400f991f81e2fdf588b3ce96b9e028af780",
+      "deploy/current-release-sha256.json": "d4b8e65d463ced6d0a53b18e45b2c202a1e1f28140943fa0033e479d34701154",
+      "scripts/verify_source.py": "7f1c56798997393001d4b0b6bcb749d16ad0973976a8fa0095b792a06570611e"
+    },
+    "rollback": "/workspace/forte_rollback_before_observations_20261018"
+  },
+  "public_smoke": {
+    "base": "https://forte.makquiz.site:14901",
+    "statuses": {
+      "/": 200,
+      "/docs": 200,
+      "/api/v1/health": 200
+    },
+    "unauthorized_status": 401,
+    "uploaded": "X-30",
+    "job_id": "ed58092d2902",
+    "verdict": "violation",
+    "upload_and_analysis_sec": 14.62,
+    "evidence_pts": [
+      14.733333,
+      15.266667,
+      15.8
+    ],
+    "legal_relation": "RELATED_ONLY",
+    "smoke_results_visible_through_gateway": 3,
+    "client": "Mac external HTTPS, verified TLS"
+  },
+  "existing_tests_passed": 35,
+  "new_tests_passed": 8,
+  "local_deployed_file_hashes_match": true,
+  "metric_scope": "Known development videos; binary verdict only; not independent camera generalization or legal correctness",
+  "offline_network_test": false
+}

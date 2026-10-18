@@ -241,6 +241,11 @@ class Analyzer:
         self.safe_clf = _load_clf("SafeClassifier", "FORTE_SAFE_CLF", SAFE_CLF)
         self.money_clf = _load_clf("MoneyClassifier", "FORTE_MONEY_CLF", MONEY_CLF)
         self.vlm = self._load_vlm()
+        self.observations = None
+        if os.environ.get("FORTE_OBSERVATIONS", "1") == "1":
+            from .observations import Observations
+            emb = self.safe_clf.emb if self.safe_clf else (self.money_clf.emb if self.money_clf else None)
+            self.observations = Observations(self.device, self.vlm, embedder=emb)
         self.load_sec = round(time.perf_counter() - t0, 1)
         log.info("models loaded on %s in %.1fs (safe classifier: %s, money classifier: %s, vlm: %s)", self.device,
                  self.load_sec, "on" if self.safe_clf else "off", "on" if self.money_clf else "off",
@@ -401,8 +406,13 @@ class Analyzer:
         except Exception as e:  # дорожки — пояснение для интерфейса, ошибка не должна ронять задачу
             log.warning("%s: timeline failed: %s", job_id, e)
             timeline = None
-        return {"verdict": "violation" if violations else "no_violation", "violations": violations,
+        result = {"verdict": "violation" if violations else "no_violation", "violations": violations,
                 "explain": explain, "meta": meta, "timeline": timeline}
+        if self.observations is not None:
+            remaining = max(0, 270-(time.perf_counter()-t0))
+            result = self.observations.apply(result, path, job_id, time.monotonic()+remaining)
+        result['meta']['timings']['total_sec'] = round(time.perf_counter()-t0, 1)
+        return result
 
     def analyze(self, video_path, job_id: str | None = None) -> dict:
         return to_api(self.run(video_path, job_id))

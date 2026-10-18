@@ -1,0 +1,226 @@
+{
+  "baseline": {
+    "tp": 15,
+    "fn": 6,
+    "fp": 0,
+    "tn": 19
+  },
+  "candidate_binary_if_unattended_folder_counts_as_A": {
+    "tp": 16,
+    "fn": 5,
+    "fp": 0,
+    "tn": 19
+  },
+  "added_observations": [
+    {
+      "video": "X-24",
+      "candidate": {
+        "start_pts_sec": 13.5,
+        "condition_pts_sec": 14.0,
+        "frame_indices": [
+          405,
+          420
+        ]
+      }
+    }
+  ],
+  "video_count": 40,
+  "sampled_frames": 2612,
+  "scan_wall_sec": 75.96,
+  "source_and_weight_files_unchanged": 28,
+  "production_changed": false,
+  "pipeline": "Fresh baseline API + separate full-video folder-head scan using baseline scene tracks",
+  "train_video_sources": [
+    "X-13",
+    "X-24",
+    "X-25",
+    "X-26"
+  ],
+  "evaluation_video_sources": [
+    "X-15",
+    "X-23",
+    "X-43",
+    "X-44"
+  ],
+  "independent_evaluation": false,
+  "folder_value_source": "Earlier user clarification; visual head predicts folder identity, not contents",
+  "checkpoint_sha256": "24ee6b8d06058ec202d3471df78e6400f991f81e2fdf588b3ce96b9e028af780",
+  "limitations": [
+    "No held-out positive folder scene",
+    "Baseline binary positives include known type/time errors",
+    "Transient object-level false positives exist outside reviewed training frames",
+    "Bag and cash heads failed evaluation and must not replace production classifiers",
+    "Candidate not integrated into public API; offline isolation test remains deferred"
+  ],
+  "spatial_contract_tests": "4 passed",
+  "pts_checks": [
+    {
+      "video": "X-24",
+      "frame_index": 240,
+      "pts_sec": 8.0,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-24",
+      "frame_index": 390,
+      "pts_sec": 13.0,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-24",
+      "frame_index": 405,
+      "pts_sec": 13.5,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-24",
+      "frame_index": 420,
+      "pts_sec": 14.0,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-24",
+      "frame_index": 435,
+      "pts_sec": 14.5,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-25",
+      "frame_index": 240,
+      "pts_sec": 8.0,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-25",
+      "frame_index": 600,
+      "pts_sec": 20.033333,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-4",
+      "frame_index": 690,
+      "pts_sec": 23.133333,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-8",
+      "frame_index": 960,
+      "pts_sec": 32.033333,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-14",
+      "frame_index": 975,
+      "pts_sec": 32.6,
+      "ffprobe_match": true
+    },
+    {
+      "video": "X-32",
+      "frame_index": 585,
+      "pts_sec": 19.566667,
+      "ffprobe_match": true
+    }
+  ],
+  "training_initial": {
+    "train:folder": {
+      "questions": 12,
+      "expected_YES": 4,
+      "localized_yes": 4,
+      "detected_yes": 4,
+      "expected_NO": 8,
+      "false_yes": 4
+    },
+    "train:bag": {
+      "questions": 12,
+      "expected_NO": 10,
+      "false_yes": 2,
+      "expected_YES": 2,
+      "localized_yes": 2,
+      "detected_yes": 2
+    },
+    "train:cash": {
+      "questions": 12,
+      "expected_NO": 7,
+      "false_yes": 0,
+      "expected_YES": 4,
+      "localized_yes": 4,
+      "detected_yes": 4,
+      "expected_UNKNOWN": 1,
+      "unverified_yes_on_unknown": 0
+    },
+    "evaluation:folder": {
+      "questions": 12,
+      "expected_NO": 12,
+      "false_yes": 0
+    },
+    "evaluation:bag": {
+      "questions": 12,
+      "expected_YES": 3,
+      "localized_yes": 1,
+      "detected_yes": 1,
+      "expected_NO": 9,
+      "false_yes": 0
+    },
+    "evaluation:cash": {
+      "questions": 12,
+      "expected_NO": 6,
+      "false_yes": 0,
+      "expected_YES": 3,
+      "localized_yes": 1,
+      "detected_yes": 1,
+      "expected_UNKNOWN": 3,
+      "unverified_yes_on_unknown": 1
+    }
+  },
+  "training_with_hard_negatives": {
+    "train:folder": {
+      "questions": 12,
+      "expected_YES": 4,
+      "localized_yes": 4,
+      "detected_yes": 4,
+      "expected_NO": 8,
+      "false_yes": 0
+    },
+    "train:bag": {
+      "questions": 12,
+      "expected_NO": 10,
+      "false_yes": 0,
+      "expected_YES": 2,
+      "localized_yes": 2,
+      "detected_yes": 2
+    },
+    "train:cash": {
+      "questions": 12,
+      "expected_NO": 7,
+      "false_yes": 0,
+      "expected_YES": 4,
+      "localized_yes": 4,
+      "detected_yes": 4,
+      "expected_UNKNOWN": 1,
+      "unverified_yes_on_unknown": 0
+    },
+    "evaluation:folder": {
+      "questions": 12,
+      "expected_NO": 12,
+      "false_yes": 0
+    },
+    "evaluation:bag": {
+      "questions": 12,
+      "expected_YES": 3,
+      "localized_yes": 1,
+      "detected_yes": 1,
+      "expected_NO": 9,
+      "false_yes": 0
+    },
+    "evaluation:cash": {
+      "questions": 12,
+      "expected_NO": 6,
+      "false_yes": 0,
+      "expected_YES": 3,
+      "localized_yes": 0,
+      "detected_yes": 0,
+      "expected_UNKNOWN": 3,
+      "unverified_yes_on_unknown": 0
+    }
+  }
+}

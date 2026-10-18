@@ -1,0 +1,540 @@
+{
+  "decision": "REJECT_FOR_PRODUCTION",
+  "production_binary_score_unchanged": {
+    "tp": 15,
+    "fn": 6,
+    "fp": 0,
+    "tn": 19
+  },
+  "folder_candidate_binary_score_unchanged": {
+    "tp": 16,
+    "fn": 5,
+    "fp": 0,
+    "tn": 19
+  },
+  "stage_probe": {
+    "metrics": {
+      "train:visitor_present_end": {
+        "questions": 20,
+        "correct": 20,
+        "expected_YES": 8,
+        "recognized_yes": 8,
+        "unsupported_yes": 0,
+        "unknown_preserved": 0,
+        "expected_NO": 12
+      },
+      "train:visitor_exit": {
+        "questions": 20,
+        "correct": 20,
+        "expected_NO": 15,
+        "recognized_yes": 3,
+        "unsupported_yes": 0,
+        "unknown_preserved": 2,
+        "expected_UNKNOWN": 2,
+        "expected_YES": 3
+      },
+      "train:banknotes_at_counter_machine": {
+        "questions": 20,
+        "correct": 20,
+        "expected_NO": 10,
+        "recognized_yes": 5,
+        "unsupported_yes": 0,
+        "unknown_preserved": 5,
+        "expected_YES": 5,
+        "expected_UNKNOWN": 5
+      },
+      "evaluation:visitor_present_end": {
+        "questions": 12,
+        "correct": 11,
+        "expected_NO": 8,
+        "recognized_yes": 4,
+        "unsupported_yes": 0,
+        "unknown_preserved": 0,
+        "expected_YES": 4
+      },
+      "evaluation:visitor_exit": {
+        "questions": 12,
+        "correct": 9,
+        "expected_NO": 8,
+        "recognized_yes": 0,
+        "unsupported_yes": 0,
+        "unknown_preserved": 1,
+        "expected_YES": 3,
+        "expected_UNKNOWN": 1
+      },
+      "evaluation:banknotes_at_counter_machine": {
+        "questions": 12,
+        "correct": 6,
+        "expected_NO": 8,
+        "recognized_yes": 2,
+        "unsupported_yes": 4,
+        "unknown_preserved": 1,
+        "expected_UNKNOWN": 2,
+        "expected_YES": 2
+      }
+    },
+    "train_scene_support": {
+      "visitor_present_end": {
+        "YES": [
+          "exchange_pair_a",
+          "visitor_pair"
+        ],
+        "NO": [
+          "device_pair",
+          "exchange_pair_a",
+          "visitor_pair"
+        ],
+        "UNKNOWN": []
+      },
+      "visitor_exit": {
+        "YES": [
+          "exchange_pair_a",
+          "visitor_pair"
+        ],
+        "NO": [
+          "device_pair",
+          "exchange_pair_a",
+          "visitor_pair"
+        ],
+        "UNKNOWN": [
+          "visitor_pair"
+        ]
+      },
+      "banknotes_at_counter_machine": {
+        "YES": [
+          "visitor_pair"
+        ],
+        "NO": [
+          "device_pair",
+          "exchange_pair_a",
+          "visitor_pair"
+        ],
+        "UNKNOWN": [
+          "device_pair",
+          "exchange_pair_a",
+          "visitor_pair"
+        ]
+      }
+    },
+    "heads_pass_gate": {
+      "visitor_present_end": true,
+      "visitor_exit": false,
+      "banknotes_at_counter_machine": false
+    },
+    "target_x34": [
+      {
+        "id": "stage_02_visitor_present_end",
+        "task": "visitor_present_end",
+        "split": "train",
+        "source_video": "Х-34.mov",
+        "expected": "NO",
+        "predicted": "NO",
+        "probabilities": {
+          "NO": 0.9916059970855713,
+          "YES": 0.008393984287977219
+        },
+        "pts": [
+          11.0,
+          12.5,
+          14.5,
+          15.5
+        ]
+      },
+      {
+        "id": "stage_02_visitor_exit",
+        "task": "visitor_exit",
+        "split": "train",
+        "source_video": "Х-34.mov",
+        "expected": "YES",
+        "predicted": "YES",
+        "probabilities": {
+          "NO": 0.001175955985672772,
+          "UNKNOWN": 0.0029598847031593323,
+          "YES": 0.9958641529083252
+        },
+        "pts": [
+          11.0,
+          12.5,
+          14.5,
+          15.5
+        ]
+      },
+      {
+        "id": "stage_02_banknotes_at_counter_machine",
+        "task": "banknotes_at_counter_machine",
+        "split": "train",
+        "source_video": "Х-34.mov",
+        "expected": "YES",
+        "predicted": "YES",
+        "probabilities": {
+          "NO": 0.0008205209160223603,
+          "UNKNOWN": 0.0002605672343634069,
+          "YES": 0.998918890953064
+        },
+        "pts": [
+          11.0,
+          12.5,
+          14.5,
+          15.5
+        ]
+      }
+    ],
+    "target_x34_consistent": true,
+    "full_video_candidate_allowed": false,
+    "production_changed": false,
+    "checkpoint_sha256": "d654cfa9537354319db3fc4230a58fcd5250e4c50fc4df444aeb22424a6986ec",
+    "seconds": 12.76,
+    "independent_evaluation": false,
+    "limitations": [
+      "Window-selected stage evaluation, not full-video detection.",
+      "Banknote-machine contact does not prove counting or ownership.",
+      "Fixed spatial views may overfit camera layout.",
+      "No X-13 action-stage labels in this manifest.",
+      "Confidence scores are not calibrated; UNKNOWN abstention is not certainty."
+    ]
+  },
+  "expanded_scene_group_validation": {
+    "questions": 132,
+    "unique_frames": 132,
+    "scene_groups": [
+      "bag_recount_pair",
+      "device_pair",
+      "exchange_pair_a",
+      "exchange_pair_b",
+      "scene_23",
+      "scene_32",
+      "visitor_pair"
+    ],
+    "metrics": {
+      "visitor_present_end": {
+        "questions": 44,
+        "correct": 35,
+        "expected_NO": 32,
+        "recognized_yes": 8,
+        "unsupported_yes": 0,
+        "unknown_preserved": 0,
+        "expected_YES": 12
+      },
+      "visitor_exit": {
+        "questions": 44,
+        "correct": 36,
+        "expected_NO": 35,
+        "recognized_yes": 0,
+        "unsupported_yes": 1,
+        "unknown_preserved": 2,
+        "expected_YES": 6,
+        "expected_UNKNOWN": 3
+      },
+      "banknotes_at_counter_machine": {
+        "questions": 44,
+        "correct": 21,
+        "expected_NO": 27,
+        "recognized_yes": 4,
+        "unsupported_yes": 4,
+        "unknown_preserved": 5,
+        "expected_UNKNOWN": 8,
+        "expected_YES": 9
+      }
+    },
+    "fold_metrics": {
+      "bag_recount_pair": {
+        "visitor_present_end": {
+          "questions": 12,
+          "correct": 12,
+          "expected_NO": 12,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "visitor_exit": {
+          "questions": 12,
+          "correct": 12,
+          "expected_NO": 12,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "banknotes_at_counter_machine": {
+          "questions": 12,
+          "correct": 9,
+          "expected_NO": 9,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0,
+          "expected_UNKNOWN": 1,
+          "expected_YES": 2
+        }
+      },
+      "device_pair": {
+        "visitor_present_end": {
+          "questions": 6,
+          "correct": 2,
+          "expected_NO": 6,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "visitor_exit": {
+          "questions": 6,
+          "correct": 6,
+          "expected_NO": 6,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "banknotes_at_counter_machine": {
+          "questions": 6,
+          "correct": 3,
+          "expected_UNKNOWN": 3,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 3,
+          "expected_NO": 3
+        }
+      },
+      "exchange_pair_a": {
+        "visitor_present_end": {
+          "questions": 6,
+          "correct": 2,
+          "expected_YES": 4,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0,
+          "expected_NO": 2
+        },
+        "visitor_exit": {
+          "questions": 6,
+          "correct": 4,
+          "expected_NO": 4,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0,
+          "expected_YES": 2
+        },
+        "banknotes_at_counter_machine": {
+          "questions": 6,
+          "correct": 1,
+          "expected_UNKNOWN": 1,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 1,
+          "expected_NO": 5
+        }
+      },
+      "exchange_pair_b": {
+        "visitor_present_end": {
+          "questions": 8,
+          "correct": 7,
+          "expected_YES": 4,
+          "recognized_yes": 4,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0,
+          "expected_NO": 4
+        },
+        "visitor_exit": {
+          "questions": 8,
+          "correct": 5,
+          "expected_NO": 4,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 1,
+          "expected_YES": 3,
+          "expected_UNKNOWN": 1
+        },
+        "banknotes_at_counter_machine": {
+          "questions": 8,
+          "correct": 3,
+          "expected_YES": 2,
+          "recognized_yes": 2,
+          "unsupported_yes": 4,
+          "unknown_preserved": 1,
+          "expected_NO": 5,
+          "expected_UNKNOWN": 1
+        }
+      },
+      "scene_23": {
+        "visitor_present_end": {
+          "questions": 2,
+          "correct": 2,
+          "expected_NO": 2,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "visitor_exit": {
+          "questions": 2,
+          "correct": 2,
+          "expected_NO": 2,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "banknotes_at_counter_machine": {
+          "questions": 2,
+          "correct": 2,
+          "expected_NO": 2,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        }
+      },
+      "scene_32": {
+        "visitor_present_end": {
+          "questions": 2,
+          "correct": 2,
+          "expected_NO": 2,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "visitor_exit": {
+          "questions": 2,
+          "correct": 2,
+          "expected_NO": 2,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0
+        },
+        "banknotes_at_counter_machine": {
+          "questions": 2,
+          "correct": 1,
+          "expected_NO": 1,
+          "recognized_yes": 0,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0,
+          "expected_UNKNOWN": 1
+        }
+      },
+      "visitor_pair": {
+        "visitor_present_end": {
+          "questions": 8,
+          "correct": 8,
+          "expected_YES": 4,
+          "recognized_yes": 4,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0,
+          "expected_NO": 4
+        },
+        "visitor_exit": {
+          "questions": 8,
+          "correct": 5,
+          "expected_NO": 5,
+          "recognized_yes": 0,
+          "unsupported_yes": 1,
+          "unknown_preserved": 1,
+          "expected_UNKNOWN": 2,
+          "expected_YES": 1
+        },
+        "banknotes_at_counter_machine": {
+          "questions": 8,
+          "correct": 2,
+          "expected_NO": 2,
+          "recognized_yes": 2,
+          "unsupported_yes": 0,
+          "unknown_preserved": 0,
+          "expected_YES": 5,
+          "expected_UNKNOWN": 1
+        }
+      }
+    },
+    "heads_pass_gate": {
+      "visitor_present_end": false,
+      "visitor_exit": false,
+      "banknotes_at_counter_machine": false
+    },
+    "full_video_candidate_allowed": false,
+    "production_changed": false,
+    "independent_evaluation": false,
+    "seconds": 7.25,
+    "checkpoint_sha256": "105a5501e164e4f08597b270e58bb4172f68c564332a0cfe114988be3e2bd241",
+    "target_x34": [
+      {
+        "id": "stage_02_visitor_present_end",
+        "source_video": "Х-34.mov",
+        "heldout_group": "visitor_pair",
+        "task": "visitor_present_end",
+        "expected": "NO",
+        "predicted": "NO",
+        "probabilities": {
+          "NO": 0.914488673210144,
+          "YES": 0.08551129698753357
+        },
+        "pts": [
+          11.0,
+          12.5,
+          14.5,
+          15.5
+        ]
+      },
+      {
+        "id": "stage_02_visitor_exit",
+        "source_video": "Х-34.mov",
+        "heldout_group": "visitor_pair",
+        "task": "visitor_exit",
+        "expected": "YES",
+        "predicted": "UNKNOWN",
+        "probabilities": {
+          "NO": 0.20912881195545197,
+          "UNKNOWN": 0.0052071744576096535,
+          "YES": 0.7856640219688416
+        },
+        "pts": [
+          11.0,
+          12.5,
+          14.5,
+          15.5
+        ]
+      },
+      {
+        "id": "stage_02_banknotes_at_counter_machine",
+        "source_video": "Х-34.mov",
+        "heldout_group": "visitor_pair",
+        "task": "banknotes_at_counter_machine",
+        "expected": "YES",
+        "predicted": "NO",
+        "probabilities": {
+          "NO": 0.9409574866294861,
+          "UNKNOWN": 0.01618349365890026,
+          "YES": 0.04285898432135582
+        },
+        "pts": [
+          11.0,
+          12.5,
+          14.5,
+          15.5
+        ]
+      }
+    ],
+    "limitations": [
+      "Reused development scenes and assistant labels; not a blind final evaluation.",
+      "Stage windows selected by annotation, no full-video event score.",
+      "Contact with counting machine is not evidence of completed recount.",
+      "Final all-development checkpoint has no separate held-out score; metrics are from fold models."
+    ]
+  },
+  "verification": {
+    "pts_checks": [
+      {
+        "video": "X-13",
+        "sampled_frames": 33,
+        "checked_with_ffprobe": true
+      },
+      {
+        "video": "X-14",
+        "sampled_frames": 72,
+        "checked_with_ffprobe": true
+      }
+    ],
+    "production_checked_files": 89,
+    "changed": [],
+    "health": {
+      "status": "ok",
+      "worker": "ready",
+      "device": "cuda",
+      "queue": 0,
+      "busy": false
+    }
+  },
+  "input_contract_tests": "3 passed",
+  "new_event_regression_performed": false
+}
