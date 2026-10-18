@@ -4,8 +4,6 @@ import type { ReviewJob, Settings } from '../api/types';
 const annotated = (time:number) => ({title:'Событие из разметки',time,description:'В разметке отмечено нарушение. Тип события и нормативное основание пока не указаны.',frames:[]});
 export const samples: ReviewJob[] = [
  {id:'sample-26',name:'Х-26.mov',status:'attention',time:'Разметка датасета — 00:09',url:'/demo/x-26.mov',events:[annotated(9)],demo:true},
- {id:'sample-3',name:'Х-3.mov',status:'clean',time:'Разметка датасета',url:'/demo/x-3.mov',events:[],demo:true},
- {id:'sample-20',name:'Х-20.mov',status:'attention',time:'Разметка датасета — 00:05',url:'/demo/x-20.mov',events:[annotated(5)],demo:true},
 ];
 export function useReviews(settings:Settings){
  const [jobs,setJobs]=useState<ReviewJob[]>(samples);const controllers=useRef(new Map<string,AbortController>());const urls=useRef<string[]>([]);

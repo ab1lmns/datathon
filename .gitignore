@@ -11,3 +11,4 @@ __pycache__/
 *.egg-info/
 backend/data/
 frontend/public/demo/*.mov
+/output/video_angles.zip

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AlertCircle, ArrowDownToLine, ArrowLeft, ArrowRight, Check, FileText, Info, LoaderCircle, Play, RotateCcw, Video } from './Icons';
+import { ReviewVideo } from './ReviewVideo';
 import { frameUrl } from '../api/client';
 import type { ReviewEvent, ReviewJob } from '../api/types';
 
@@ -45,8 +46,8 @@ export function ReviewDetail({ job, onPlay, onRule, onCancel, onRetry, onSetting
       <div className={`big-progress ${job.progress === undefined ? 'indeterminate' : ''}`} role="progressbar" aria-label="Обработка видео" aria-valuenow={job.progress} aria-valuemin={0} aria-valuemax={100}><i style={{width:`${job.progress ?? 35}%`}}/></div>
       <span className="processing-caption">{job.progress === undefined ? 'Проверка выполняется…' : `${Math.round(job.progress)}%`}</span><button className="text-link" onClick={() => onCancel(job.id)}>Отменить ожидание</button>
     </div> : job.status === 'failed' ? <div className="processing-state"><span className="empty-icon error-icon"><AlertCircle/></span><h3>Проверка не завершена</h3><p role="alert">{job.error}</p><div className="state-actions"><button className="soft-button" onClick={() => onRetry(job)}><RotateCcw size={15}/>Повторить</button><button className="text-link" onClick={onSettings}>Подключение API</button></div></div> : <>
-      <VideoPreview key={job.id} url={job.url} time={event?.time || 0} onPlay={() => onPlay(event)}/>
-      {job.events.length > 1 && <div className="event-tabs" aria-label="События проверки">{job.events.map((item, i) => <button key={i} aria-pressed={index === i} className={index === i ? 'selected' : ''} onClick={() => setIndex(i)}>{clock(item.time)}<span>Событие {i + 1}</span></button>)}</div>}
+      <ReviewVideo key={job.id} job={job} index={index} onSelect={setIndex}/>
+
       <div key={`${job.id}-${index}`} className="event-copy">
         <div className={`verdict ${job.status === 'clean' ? 'clean' : ''}`}>{job.status === 'clean' ? <Check size={14}/> : <AlertCircle size={14}/>}<span>{job.status === 'clean' ? 'Нарушение не обнаружено' : 'Обнаружены признаки возможных нарушений'}</span></div>
         <h3 className="event-title">{event?.title || 'Всё спокойно'}</h3>
@@ -59,8 +60,7 @@ export function ReviewDetail({ job, onPlay, onRule, onCancel, onRetry, onSetting
   </div>;
 }
 export function VideoPlayer({job,event}:{job:ReviewJob;event?:ReviewEvent}){
- const video=useRef<HTMLVideoElement>(null);const [failed,setFailed]=useState(false),[frame,setFrame]=useState('');
- const time=event?.time||0;
- function capture(){const v=video.current;if(!v?.videoWidth)return;const canvas=document.createElement('canvas');canvas.width=v.videoWidth;canvas.height=v.videoHeight;canvas.getContext('2d')?.drawImage(v,0,0);setFrame(canvas.toDataURL('image/jpeg'))}
- return <><div className="player-video"><video ref={video} src={job.url} controls playsInline muted preload="metadata" onError={()=>setFailed(true)} onLoadedMetadata={()=>{if(video.current)video.current.currentTime=Math.min(time,Math.max(0,video.current.duration-.1))}} onSeeked={()=>{if(video.current&&Math.abs(video.current.currentTime-time)<.2)capture()}}/>{failed&&<div className="player-error"><Video/><p>Видео недоступно или кодек не поддерживается браузером. Кадры из результата API доступны в карточке проверки.</p></div>}</div><span className="player-time">{clock(time)} — {event?'Событие':'Начало записи'}</span><h3>{event?.title||'Нарушение не обнаружено'}</h3><p>{event?.description||'События, требующие внимания, не отмечены.'}</p>{frame&&event&&!event.frames.length&&<details><summary>Предпросмотр кадра — {clock(time)}</summary><img className="evidence" src={frame} alt={`Предпросмотр ${clock(time)}`}/><a className="text-link" href={frame} download={`${job.name}-preview.jpg`}><ArrowDownToLine size={15}/>Скачать кадр</a></details>}<div className="notice"><Info size={17}/>Результат — подсказка проверяющему, а не окончательное заключение.</div></>;
+ const [index,setIndex]=useState(Math.max(0,event?job.events.indexOf(event):0));
+ const selected=job.events[index];
+ return <><ReviewVideo job={job} index={index} onSelect={setIndex}/><h3>{selected?.title||'Просмотр исходной записи'}</h3><p>{selected?.description||'События, требующие внимания, не отмечены.'}</p><div className="notice"><Info size={17}/>Результат — подсказка проверяющему, а не окончательное заключение.</div></>;
 }
