@@ -12,6 +12,7 @@ __pycache__/
 backend/data/
 frontend/public/demo/*.mov
 /output/video_angles.zip
+/output/video_angles_zip_parts/
 
 .venv-web/
 backend/.venv/
