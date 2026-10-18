@@ -10,6 +10,7 @@ export {
  Repeat2,
  RotateCw,
  Check,
+ ChevronDown,
  CircleHelp,
  Clock3,
  Eye,

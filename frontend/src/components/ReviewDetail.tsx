@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AlertCircle, ArrowDownToLine, ArrowLeft, Check, FileText, Info, LoaderCircle, Play, RotateCcw, Video } from './Icons';
+import { AlertCircle, ArrowDownToLine, ArrowLeft, ArrowUpRight, Check, FileText, Info, LoaderCircle, Play, RotateCcw, Video } from './Icons';
 import { ReviewVideo } from './ReviewVideo';
 import { frameUrl } from '../api/client';
 import type { EvidenceFrame, ReviewEvent, ReviewJob } from '../api/types';
@@ -67,7 +67,7 @@ export function ReviewDetail({ job, onCancel, onRetry, onSettings, onBack, onEvi
           </div>)}
           {!!event.rule.unknown_conditions?.length && <div className="rule-conditions"><p>Требует подтверждения</p><ul>{event.rule.unknown_conditions.map(condition => <li key={condition.id}>{condition.text}</li>)}</ul></div>}
           {event.rule.checked_at && <p className="field-hint">{event.rule.source_verification === 'OFFICIAL_TEXT_VERIFIED' ? 'Цитата сверена с официальным текстом' : 'Дата проверки, заявленная автором нормативного пакета'}: {event.rule.checked_at}</p>}
-          {event.rule.url && <a className="text-link" href={event.rule.url} target="_blank" rel="noreferrer">Открыть источник</a>}
+          {event.rule.url && <a className="source-link" href={event.rule.url} target="_blank" rel="noreferrer"><FileText size={19}/>Открыть источник<ArrowUpRight size={19}/></a>}
         </> : <p>Нормативный источник пока не предоставлен.</p>}
       </section>}
       <div className="human-note"><Info size={14}/><span>Вывод требует проверки человеком</span></div>
