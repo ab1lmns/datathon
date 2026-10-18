@@ -27,6 +27,7 @@ from .timeline import build_timeline
 from .rules import detect
 from .scene import BAG_Q, CACHE, CUP_Q, MONEY_Q, PERSONAL_Q, build_scene, center, inside, iou
 from .video import read_frame
+from .evidence_labels import render_labels
 
 log = logging.getLogger("cashguard.pipeline")
 
@@ -111,45 +112,42 @@ def vlm_answer(cache, qid, field, t, tol=0.6):
 
 def draw_evidence(fr, sc, t, money_seen=None, vlm_cache=None):
     """Рамки на кадре: стол, дверь, сейф, люди в помещении (роль), предметы на столе."""
+    labels = []
     def rect(b, c, th=2, label=None, below=False):
         x1, y1, x2, y2 = [int(v) for v in b]
         cv2.rectangle(fr, (x1, y1), (x2, y2), c, th)
         if label:
-            (tw, tht), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.45, 1)
-            ty = min(fr.shape[0], y2 + tht + 4) if below else max(tht + 4, y1)
-            cv2.rectangle(fr, (x1, ty - tht - 4), (x1 + tw + 4, ty), c, -1)
-            cv2.putText(fr, label, (x1 + 2, ty - 3), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 0), 1,
-                        cv2.LINE_AA)
+            labels.append((b, c, label, below))
 
     if sc.door:
         a = vlm_answer(vlm_cache, "door", "door", t)
         # подпись под рамкой: дверь обычно начинается у верхнего края, там плашка времени
         rect(sc.door, (0, 0, 255) if a == "open" else (190, 190, 190), 2 if a == "open" else 1,
-             "door" if a is None else f"door: {a}", below=True)
+             {"open": "Дверь: открыта", "closed": "Дверь: закрыта"}.get(a, "Дверь: состояние неясно"), below=True)
     laptop = getattr(sc, "laptop", None)
     if laptop:
         a = vlm_answer(vlm_cache, "laptop", "screen", t)
         if a is not None:  # рамку ноутбука показываем, только если о нём спрашивали VLM
-            rect(laptop, (0, 0, 255) if a == "unlocked" else (200, 200, 200), 2, f"screen: {a}", below=True)
+            rect(laptop, (0, 0, 255) if a == "unlocked" else (200, 200, 200), 2, {"unlocked": "Экран: не заблокирован", "locked": "Экран: заблокирован"}.get(a, "Экран: состояние неясно"), below=True)
     if sc.desk:
         # подпись под рамкой: сверху стол перекрыт рамкой кассира
         pm = money_p_at(money_seen, t)
-        rect(sc.desk, (255, 255, 255), 1, "desk" if pm is None else f"desk: money {pm:.2f}", below=True)
+        rect(sc.desk, (255, 255, 255), 1, "Рабочий стол", below=True)
     if sc.safe:
         p = safe_p_at(sc, t)
         # подпись под рамкой: сверху сейф обычно перекрыт рамкой кассира
         if p is None:
-            rect(sc.safe, (200, 200, 0), 1, "safe", below=True)
+            rect(sc.safe, (200, 200, 0), 1, "Сейф", below=True)
         elif p >= 0.5:
-            rect(sc.safe, (0, 0, 255), 2, f"safe open {p:.2f}", below=True)
+            rect(sc.safe, (0, 0, 255), 2, "Сейф: открыт", below=True)
         else:
-            rect(sc.safe, (200, 200, 0), 1, f"safe closed {1 - p:.2f}", below=True)
+            rect(sc.safe, (200, 200, 0), 1, "Сейф: закрыт", below=True)
     for tr in sc.tracks:
         if tr.start - 0.01 <= t <= tr.end + 0.01:
             b = sc.box_at(tr, t, tol=0.3)
             if b is not None:
                 role = sc.roles.get(tr.tid, "visitor")
-                rect(b, COL_ROLE.get(role, (0, 0, 255)), 2, f"{role} #{tr.tid}")
+                rect(b, COL_ROLE.get(role, (0, 0, 255)), 2, {"cashier": "Кассир", "visitor": "Посетитель"}.get(role, "Человек"))
     if len(sc.owl_times) and sc.desk:
         k = int(np.argmin(np.abs(sc.owl_times - t)))
         if abs(sc.owl_times[k] - t) <= 0.6:
@@ -161,8 +159,9 @@ def draw_evidence(fr, sc, t, money_seen=None, vlm_cache=None):
                 if any(kd == kind and iou(b, ob) > 0.5 for kd, ob in drawn):
                     continue
                 drawn.append((kind, b))
-                rect(b, COL_OBJ[kind], 2, f"{kind} {s:.2f}")
-    stamp = f"{t:.1f} s"
+                rect(b, COL_OBJ[kind], 2, {"money": "Банкноты", "bag": "Сумка", "personal": "Предмет", "cup": "Чашка"}[kind])
+    fr = render_labels(fr, labels)
+    stamp = f"{int(t)//60:02d}:{t % 60:04.1f}"
     (tw, th), _ = cv2.getTextSize(stamp, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
     cv2.rectangle(fr, (0, 0), (tw + 12, th + 12), (0, 0, 0), -1)
     cv2.putText(fr, stamp, (6, th + 6), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
